@@ -1,0 +1,27 @@
+# env
+.env
+.env.local
+.env.*.local
+
+# deps
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# build
+.next/
+dist/
+build/
+*.docx
+*.pdf
+*.png
+!docs/**/*.png
+spike_output/
+
+# misc
+.DS_Store
+*.log
+.vercel/

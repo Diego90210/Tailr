@@ -1,0 +1,9 @@
+# Standalone context for the Vercel build (only apps/web is uploaded), so the
+# root pnpm-workspace.yaml does not apply there. `packages: ["."]` makes
+# apps/web its own workspace root; locally the repo root workspace still governs
+# and ignores this file. allowBuilds mirrors the root file — see pnpm strictDepBuilds.
+packages:
+  - "."
+allowBuilds:
+  sharp: false
+  unrs-resolver: false

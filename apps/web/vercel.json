@@ -1,0 +1,4 @@
+{
+  "regions": ["iad1"],
+  "installCommand": "npx --yes pnpm@12.10.1 install"
+}

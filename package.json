@@ -1,0 +1,14 @@
+{
+  "name": "tailr",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint",
+    "typecheck": "pnpm --filter web typecheck",
+    "test": "pnpm --filter web test",
+    "test:i18n": "node scripts/check_locale_parity.mjs"
+  },
+  "packageManager": "pnpm@12.10.1"
+}

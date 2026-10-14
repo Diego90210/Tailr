@@ -1,0 +1,13 @@
+[project]
+name = "docgen"
+version = "0.1.0"
+requires-python = ">=3.11"
+# Runtime deps only — keep in sync with requirements.txt (local/CI, adds pytest).
+dependencies = [
+  "python-docx==1.2.0",
+  "Pillow==11.1.0",
+  "pypdf==6.19.0",
+]
+
+[tool.vercel]
+entrypoint = "api.health:handler"

@@ -1,0 +1,2875 @@
+{
+  "project": "Tailr",
+  "version": 1,
+  "source": "TASKS.md",
+  "note": "Operative task list. TASKS.md is the human-readable reference. Update ONLY this file during a session; regenerate from TASKS.md if the plan changes structurally.",
+  "statuses": [
+    "pending",
+    "in_progress",
+    "review",
+    "done",
+    "blocked"
+  ],
+  "priority_order": [
+    "P0",
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "rules": {
+    "one_active_at_a_time": true,
+    "active_statuses": [
+      "in_progress",
+      "review"
+    ],
+    "choose_next": "lowest priority rank first, then lowest id with satisfied depends_on"
+  },
+  "counts": {
+    "total": 111,
+    "by_status": {
+      "pending": 96,
+      "in_progress": 0,
+      "review": 0,
+      "done": 15,
+      "blocked": 0
+    },
+    "by_priority": {
+      "P0": 61,
+      "P1": 34,
+      "P2": 11,
+      "P3": 5
+    }
+  },
+  "features": [
+    {
+      "id": 1,
+      "key": "SPIKE-01",
+      "area": "SPIKE",
+      "name": "Prove one-page fidelity",
+      "detail": "render a real CV content tree to .docx with python-docx, then produce a preview image via both a headless-Chromium HTML replica and a LibreOffice container. Compare page count, line breaks and fill_pct. Decide option A vs B (technical_requirements.md §12.1).",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "L",
+      "depends_on": [],
+      "refs": [
+        "TR-FMT-1…5",
+        "§12.1"
+      ],
+      "acceptance": [
+        "render a real CV content tree to .docx with python-docx, then produce a preview image via both a headless-Chromium HTML replica and a LibreOffice container. Compare page count, line breaks and fill_pct. Decide option A vs B (technical_requirements.md §12.1).",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [],
+      "depends_on_ext": []
+    },
+    {
+      "id": 2,
+      "key": "SPIKE-02",
+      "area": "SPIKE",
+      "name": "Validate Groq as primary",
+      "detail": "confirm ZDR is available and self-serve on the free tier, measure real rate limits (RPM/TPM), and verify JSON-schema structured output reliability on the target model. Record results.",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [],
+      "refs": [
+        "§8.1",
+        "RF-11.4"
+      ],
+      "acceptance": [
+        "confirm ZDR is available and self-serve on the free tier, measure real rate limits (RPM/TPM), and verify JSON-schema structured output reliability on the target model. Record results.",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [],
+      "depends_on_ext": []
+    },
+    {
+      "id": 3,
+      "key": "SPIKE-03",
+      "area": "SPIKE",
+      "name": "Structured-output reliability",
+      "detail": "run 20 real prompts through the chosen model and measure schema-validation failure rate. If > 5%, add a repair step or change model.",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "SPIKE-02"
+      ],
+      "refs": [
+        "RF-11.4"
+      ],
+      "acceptance": [
+        "run 20 real prompts through the chosen model and measure schema-validation failure rate. If > 5%, add a repair step or change model.",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 4,
+      "key": "SPIKE-04",
+      "area": "SPIKE",
+      "name": "Client-side parsing feasibility",
+      "detail": "verify pdf.js + mammoth.js extract usable text from 10 real CVs (including a scanned one, to confirm the failure path is detectable).",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [],
+      "refs": [
+        "RF-2.2",
+        "RF-2.4"
+      ],
+      "acceptance": [
+        "verify pdf.js + mammoth.js extract usable text from 10 real CVs (including a scanned one, to confirm the failure path is detectable).",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [],
+      "depends_on_ext": []
+    },
+    {
+      "id": 5,
+      "key": "SETUP-01",
+      "area": "SETUP",
+      "name": "Repo skeleton: Next.js App Router + TypeScript + Tailwind + shadcn/ui. Structure per technical_requirements.md §4",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "M",
+      "depends_on": [
+        "SPIKE-01"
+      ],
+      "refs": [
+        "§4"
+      ],
+      "acceptance": [
+        "Repo skeleton: Next.js App Router + TypeScript + Tailwind + shadcn/ui. Structure per technical_requirements.md §4",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 6,
+      "key": "SETUP-02",
+      "area": "SETUP",
+      "name": "Python docgen service skeleton (services/docgen) with a health endpoint",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "§12"
+      ],
+      "acceptance": [
+        "Python docgen service skeleton (services/docgen) with a health endpoint",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 7,
+      "key": "SETUP-03",
+      "area": "SETUP",
+      "name": "CI: lint, typecheck, unit tests (web + docgen), locale-parity check. Fails the build on any of them",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-01",
+        "02"
+      ],
+      "refs": [
+        "TR-TEST-3"
+      ],
+      "acceptance": [
+        "CI: lint, typecheck, unit tests (web + docgen), locale-parity check. Fails the build on any of them",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": [
+        "02"
+      ]
+    },
+    {
+      "id": 8,
+      "key": "SETUP-04",
+      "area": "SETUP",
+      "name": "Env contract: .env.example + boot-time validation that fails fast with a clear message",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "TR-ENV-1",
+        "2"
+      ],
+      "acceptance": [
+        "Env contract: .env.example + boot-time validation that fails fast with a clear message",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 9,
+      "key": "SETUP-05",
+      "area": "SETUP",
+      "name": "LICENSE (MIT), CONTRIBUTING.md, README.md with local setup",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "PRD §18"
+      ],
+      "acceptance": [
+        "LICENSE (MIT), CONTRIBUTING.md, README.md with local setup",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 10,
+      "key": "SETUP-06",
+      "area": "SETUP",
+      "name": "Deploy the skeleton to Vercel (web + docgen), functions pinned to iad1. Verify the live URL",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-02"
+      ],
+      "refs": [
+        "§18.1"
+      ],
+      "acceptance": [
+        "Deploy the skeleton to Vercel (web + docgen), functions pinned to iad1. Verify the live URL",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 11,
+      "key": "SETUP-07",
+      "area": "SETUP",
+      "name": "Supabase project created with region pinned to us-east-1; supabase/migrations wired to CI",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "§18.1"
+      ],
+      "acceptance": [
+        "Supabase project created with region pinned to us-east-1; supabase/migrations wired to CI",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 12,
+      "key": "SETUP-08",
+      "area": "SETUP",
+      "name": "Clerk application configured; middleware protects app routes and leaves /start public",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "RF-1.1",
+        "§14"
+      ],
+      "acceptance": [
+        "Clerk application configured; middleware protects app routes and leaves /start public",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 13,
+      "key": "SETUP-09",
+      "area": "SETUP",
+      "name": "Upstash Redis provisioned; region co-located with the functions",
+      "detail": "",
+      "phase": "Phase 0 — Spikes and foundations",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "XS",
+      "depends_on": [
+        "SETUP-06"
+      ],
+      "refs": [
+        "§16"
+      ],
+      "acceptance": [
+        "Upstash Redis provisioned; region co-located with the functions",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 14,
+      "key": "DATA-01",
+      "area": "DATA",
+      "name": "Migration: profiles, facts, experience, projects, education, certifications",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-07"
+      ],
+      "refs": [
+        "§5.1"
+      ],
+      "acceptance": [
+        "Migration: profiles, facts, experience, projects, education, certifications",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 15,
+      "key": "DATA-02",
+      "area": "DATA",
+      "name": "Migration: format_specs + seed the global default (Cambria, name 15pt, body 11pt, italic dates, #0563C1 links)",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "§11.1",
+        "RF-6.2"
+      ],
+      "acceptance": [
+        "Migration: format_specs + seed the global default (Cambria, name 15pt, body 11pt, italic dates, #0563C1 links)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 16,
+      "key": "DATA-03",
+      "area": "DATA",
+      "name": "Migration: job_analyses, questions, conversations",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "§5.1"
+      ],
+      "acceptance": [
+        "Migration: job_analyses, questions, conversations",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 17,
+      "key": "DATA-04",
+      "area": "DATA",
+      "name": "Migration: generated_cvs, usage_events, user_api_keys (incl. cost_source, key_ciphertext)",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "§5.1",
+        "§11"
+      ],
+      "acceptance": [
+        "Migration: generated_cvs, usage_events, user_api_keys (incl. cost_source, key_ciphertext)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 18,
+      "key": "DATA-05",
+      "area": "DATA",
+      "name": "RLS policies on every table, using auth.jwt()->>'sub'; usage_events server-insert only",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01…04"
+      ],
+      "refs": [
+        "§5.2",
+        "§7"
+      ],
+      "acceptance": [
+        "RLS policies on every table, using auth.jwt()->>'sub'; usage_events server-insert only",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [],
+      "depends_on_ext": [
+        "DATA-01…04"
+      ]
+    },
+    {
+      "id": 19,
+      "key": "DATA-06",
+      "area": "DATA",
+      "name": "Clerk ↔ Supabase integration: pass the Clerk JWT to Supabase and verify RLS sees the sub",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-08",
+        "DATA-05"
+      ],
+      "refs": [
+        "§14"
+      ],
+      "acceptance": [
+        "Clerk ↔ Supabase integration: pass the Clerk JWT to Supabase and verify RLS sees the sub",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-08",
+        "DATA-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 20,
+      "key": "DATA-07",
+      "area": "DATA",
+      "name": "TS types + zod contracts for profile, analysis and generation (lib/contracts)",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "§6"
+      ],
+      "acceptance": [
+        "TS types + zod contracts for profile, analysis and generation (lib/contracts)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 21,
+      "key": "DATA-08",
+      "area": "DATA",
+      "name": "Repository/service layer with server-side ownership checks (defense in depth beyond RLS)",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-06",
+        "07"
+      ],
+      "refs": [
+        "§7"
+      ],
+      "acceptance": [
+        "Repository/service layer with server-side ownership checks (defense in depth beyond RLS)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-06"
+      ],
+      "depends_on_ext": [
+        "07"
+      ]
+    },
+    {
+      "id": 22,
+      "key": "DATA-09",
+      "area": "DATA",
+      "name": "Retention job: age-out per backend_schema.md §15 (30d analyses/CVs, 7d guest) + keep_my_data flag on profiles",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "§15"
+      ],
+      "acceptance": [
+        "Retention job: age-out per backend_schema.md §15 (30d analyses/CVs, 7d guest) + keep_my_data flag on profiles",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 23,
+      "key": "DATA-10",
+      "area": "DATA",
+      "name": "RLS + ownership verification tests (user B cannot read user A)",
+      "detail": "",
+      "phase": "Phase 1 — Data layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DATA-06"
+      ],
+      "refs": [
+        "§22"
+      ],
+      "acceptance": [
+        "RLS + ownership verification tests (user B cannot read user A)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 24,
+      "key": "LLM-01",
+      "area": "LLM",
+      "name": "Provider interface + TaskKind + request/response types. No SDK import outside lib/llm/providers",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "RF-11.1"
+      ],
+      "acceptance": [
+        "Provider interface + TaskKind + request/response types. No SDK import outside lib/llm/providers",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 25,
+      "key": "LLM-02",
+      "area": "LLM",
+      "name": "Groq adapter with JSON-schema structured output",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-01",
+        "SPIKE-02"
+      ],
+      "refs": [
+        "RF-11.4"
+      ],
+      "acceptance": [
+        "Groq adapter with JSON-schema structured output",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-01",
+        "SPIKE-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 26,
+      "key": "LLM-03",
+      "area": "LLM",
+      "name": "Task router driven by env (LLM_ROUTE_*), no recompilation to change models",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-02"
+      ],
+      "refs": [
+        "RF-11.2"
+      ],
+      "acceptance": [
+        "Task router driven by env (LLM_ROUTE_*), no recompilation to change models",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 27,
+      "key": "LLM-04",
+      "area": "LLM",
+      "name": "Cascade fallback chain with failure classification (rate limit / timeout / upstream)",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-03"
+      ],
+      "refs": [
+        "RF-11.3"
+      ],
+      "acceptance": [
+        "Cascade fallback chain with failure classification (rate limit / timeout / upstream)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 28,
+      "key": "LLM-05",
+      "area": "LLM",
+      "name": "Cost meter + versioned pricing table (lib/llm/pricing.ts)",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-02"
+      ],
+      "refs": [
+        "TR-RL-5"
+      ],
+      "acceptance": [
+        "Cost meter + versioned pricing table (lib/llm/pricing.ts)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 29,
+      "key": "LLM-06",
+      "area": "LLM",
+      "name": "Write a usage_events row on every call (provider, model, tokens, cost, latency)",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-05",
+        "DATA-04"
+      ],
+      "refs": [
+        "RF-11.5"
+      ],
+      "acceptance": [
+        "Write a usage_events row on every call (provider, model, tokens, cost, latency)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-05",
+        "DATA-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 30,
+      "key": "LLM-07",
+      "area": "LLM",
+      "name": "Migrate the existing skills into prompts/*.md (analyze-jd, extract-profile, gap-questions, rewrite-bullets, diagnose-ats, humanizer)",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "RF-11.6"
+      ],
+      "acceptance": [
+        "Migrate the existing skills into prompts/*.md (analyze-jd, extract-profile, gap-questions, rewrite-bullets, diagnose-ats, humanizer)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 31,
+      "key": "LLM-08",
+      "area": "LLM",
+      "name": "Validate every LLM response with zod before use; invalid output never reaches the user or the DB",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DATA-07"
+      ],
+      "refs": [
+        "RF-11.4"
+      ],
+      "acceptance": [
+        "Validate every LLM response with zod before use; invalid output never reaches the user or the DB",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 32,
+      "key": "LLM-09",
+      "area": "LLM",
+      "name": "Deterministic mock provider for tests and local development",
+      "detail": "",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-01"
+      ],
+      "refs": [
+        "§19"
+      ],
+      "acceptance": [
+        "Deterministic mock provider for tests and local development",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 33,
+      "key": "LLM-10",
+      "area": "LLM",
+      "name": "Enable ZDR",
+      "detail": "in the provider console and add a startup assertion that no training-enabled configuration is used.",
+      "phase": "Phase 2 — LLM layer",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "XS",
+      "depends_on": [
+        "SPIKE-02"
+      ],
+      "refs": [
+        "§8.1"
+      ],
+      "acceptance": [
+        "in the provider console and add a startup assertion that no training-enabled configuration is used.",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 34,
+      "key": "PROF-01",
+      "area": "PROF",
+      "name": "Profile CRUD API (POST/GET/PATCH /api/profile), zod-validated, ownership-checked",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-08"
+      ],
+      "refs": [
+        "RF-2.5"
+      ],
+      "acceptance": [
+        "Profile CRUD API (POST/GET/PATCH /api/profile), zod-validated, ownership-checked",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-08"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 35,
+      "key": "PROF-02",
+      "area": "PROF",
+      "name": "Profile editor UI — accordion sections, inline add/edit, autosave with debounce, unsaved-change guard",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "PROF-01"
+      ],
+      "refs": [
+        "P4"
+      ],
+      "acceptance": [
+        "Profile editor UI — accordion sections, inline add/edit, autosave with debounce, unsaved-change guard",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 36,
+      "key": "PROF-03",
+      "area": "PROF",
+      "name": "Fact model in the UI: every bullet shows provenance (cv_upload / user_input / chat_answer) and is independently editable",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "PROF-02"
+      ],
+      "refs": [
+        "RF-2.6",
+        "P4"
+      ],
+      "acceptance": [
+        "Fact model in the UI: every bullet shows provenance (cv_upload / user_input / chat_answer) and is independently editable",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 37,
+      "key": "PROF-04",
+      "area": "PROF",
+      "name": "Client-side extraction: pdf.js for PDF, mammoth.js for DOCX, MIME/size validation, no binary upload",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SPIKE-04"
+      ],
+      "refs": [
+        "RF-2.1",
+        "2.2"
+      ],
+      "acceptance": [
+        "Client-side extraction: pdf.js for PDF, mammoth.js for DOCX, MIME/size validation, no binary upload",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 38,
+      "key": "PROF-05",
+      "area": "PROF",
+      "name": "extract_profile prompt + POST /api/profile/parse returning a partial profile, per-field confidence and undetected[]",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-08",
+        "PROF-04"
+      ],
+      "refs": [
+        "RF-2.3",
+        "2.4"
+      ],
+      "acceptance": [
+        "extract_profile prompt + POST /api/profile/parse returning a partial profile, per-field confidence and undetected[]",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-08",
+        "PROF-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 39,
+      "key": "PROF-06",
+      "area": "PROF",
+      "name": "Undetected-fields UI: explicit list of what could not be read, each linking to the exact field",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "PROF-05"
+      ],
+      "refs": [
+        "RF-2.4",
+        "P3"
+      ],
+      "acceptance": [
+        "Undetected-fields UI: explicit list of what could not be read, each linking to the exact field",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 40,
+      "key": "PROF-07",
+      "area": "PROF",
+      "name": "Onboarding screens P2 and P3 (upload vs manual, progress, error states incl. scanned PDF)",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "PROF-06"
+      ],
+      "refs": [
+        "P2",
+        "P3"
+      ],
+      "acceptance": [
+        "Onboarding screens P2 and P3 (upload vs manual, progress, error states incl. scanned PDF)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 41,
+      "key": "PROF-08",
+      "area": "PROF",
+      "name": "Profile strength indicator (completeness %, fact count, open gaps) — a nudge, never a blocker",
+      "detail": "",
+      "phase": "Phase 3 — Profile",
+      "priority": "P3",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "PROF-02"
+      ],
+      "refs": [
+        "P4"
+      ],
+      "acceptance": [
+        "Profile strength indicator (completeness %, fact count, open gaps) — a nudge, never a blocker",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 42,
+      "key": "JD-01",
+      "area": "JD",
+      "name": "analyze_jd prompt: must/nice split, keyword kinds, language, seniority, red flags, company and role title",
+      "detail": "",
+      "phase": "Phase 4 — Posting analysis",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-08"
+      ],
+      "refs": [
+        "RF-3.2"
+      ],
+      "acceptance": [
+        "analyze_jd prompt: must/nice split, keyword kinds, language, seniority, red flags, company and role title",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-08"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 43,
+      "key": "JD-02",
+      "area": "JD",
+      "name": "POST /api/analyze endpoint, payload caps (20k chars), persistence to job_analyses",
+      "detail": "",
+      "phase": "Phase 4 — Posting analysis",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "JD-01",
+        "DATA-03"
+      ],
+      "refs": [
+        "RF-3.1"
+      ],
+      "acceptance": [
+        "POST /api/analyze endpoint, payload caps (20k chars), persistence to job_analyses",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-01",
+        "DATA-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 44,
+      "key": "JD-03",
+      "area": "JD",
+      "name": "Deterministic match score (must 70% / nice 30%) computed in code, never by the LLM",
+      "detail": "",
+      "phase": "Phase 4 — Posting analysis",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "JD-02"
+      ],
+      "refs": [
+        "RF-3.3"
+      ],
+      "acceptance": [
+        "Deterministic match score (must 70% / nice 30%) computed in code, never by the LLM",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 45,
+      "key": "JD-04",
+      "area": "JD",
+      "name": "Posting-only cache keyed by jd_hash: caches requirements/keywords/language but never match score or coverage",
+      "detail": "",
+      "phase": "Phase 4 — Posting analysis",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "JD-03"
+      ],
+      "refs": [
+        "§13.3"
+      ],
+      "acceptance": [
+        "Posting-only cache keyed by jd_hash: caches requirements/keywords/language but never match score or coverage",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 46,
+      "key": "JD-05",
+      "area": "JD",
+      "name": "Language handling: detect ES/EN; if other, ask which CV language to use",
+      "detail": "",
+      "phase": "Phase 4 — Posting analysis",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "JD-02"
+      ],
+      "refs": [
+        "RF-3.4",
+        "RF-8.5"
+      ],
+      "acceptance": [
+        "Language handling: detect ES/EN; if other, ask which CV language to use",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 47,
+      "key": "CHAT-01",
+      "area": "CHAT",
+      "name": "Coverage classification per requirement: COVERED / PARTIAL / UNKNOWN, using retrieved facts only",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "JD-03"
+      ],
+      "refs": [
+        "§7.2"
+      ],
+      "acceptance": [
+        "Coverage classification per requirement: COVERED / PARTIAL / UNKNOWN, using retrieved facts only",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 48,
+      "key": "CHAT-02",
+      "area": "CHAT",
+      "name": "Confidence scorer: weighted formula, threshold fixed at 0.95, blocking rule for must gaps",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "CHAT-01"
+      ],
+      "refs": [
+        "§10",
+        "RF-4.1"
+      ],
+      "acceptance": [
+        "Confidence scorer: weighted formula, threshold fixed at 0.95, blocking rule for must gaps",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 49,
+      "key": "CHAT-03",
+      "area": "CHAT",
+      "name": "gap_questions prompt: max 4 questions per round, in the UI language, only about gaps",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-08"
+      ],
+      "refs": [
+        "RF-4.2",
+        "4.3"
+      ],
+      "acceptance": [
+        "gap_questions prompt: max 4 questions per round, in the UI language, only about gaps",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-08"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 50,
+      "key": "CHAT-04",
+      "area": "CHAT",
+      "name": "POST /api/chat streaming endpoint; transcript persisted",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "CHAT-03"
+      ],
+      "refs": [
+        "RF-4.6"
+      ],
+      "acceptance": [
+        "POST /api/chat streaming endpoint; transcript persisted",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 51,
+      "key": "CHAT-05",
+      "area": "CHAT",
+      "name": "Answers persisted as facts with provenance = chat_answer; confidence recomputed on each answer",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "CHAT-04"
+      ],
+      "refs": [
+        "RF-4.4"
+      ],
+      "acceptance": [
+        "Answers persisted as facts with provenance = chat_answer; confidence recomputed on each answer",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 52,
+      "key": "CHAT-06",
+      "area": "CHAT",
+      "name": "\"No / Skip\" semantics: closes the gap as none and never fills it with a guess",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "CHAT-05"
+      ],
+      "refs": [
+        "RF-4.5"
+      ],
+      "acceptance": [
+        "\"No / Skip\" semantics: closes the gap as none and never fills it with a guess",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 53,
+      "key": "CHAT-07",
+      "area": "CHAT",
+      "name": "P6 UI: analysis panel with status badges, live confidence meter, chat panel, action bar",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "CHAT-04"
+      ],
+      "refs": [
+        "P6"
+      ],
+      "acceptance": [
+        "P6 UI: analysis panel with status badges, live confidence meter, chat panel, action bar",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 54,
+      "key": "CHAT-08",
+      "area": "CHAT",
+      "name": "Force-generate path: secondary CTA, persistent warning, records forced = true",
+      "detail": "",
+      "phase": "Phase 5 — Gap chat",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "CHAT-07"
+      ],
+      "refs": [
+        "RF-4.1",
+        "P6"
+      ],
+      "acceptance": [
+        "Force-generate path: secondary CTA, persistent warning, records forced = true",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 55,
+      "key": "GEN-01",
+      "area": "GEN",
+      "name": "Section selection and ordering by relevance to the posting",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "CHAT-02"
+      ],
+      "refs": [
+        "§8.2"
+      ],
+      "acceptance": [
+        "Section selection and ordering by relevance to the posting",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 56,
+      "key": "GEN-02",
+      "area": "GEN",
+      "name": "rewrite_bullets prompt: XYZ formula, every bullet returns factIds[]",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-01"
+      ],
+      "refs": [
+        "RF-5.4"
+      ],
+      "acceptance": [
+        "rewrite_bullets prompt: XYZ formula, every bullet returns factIds[]",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 57,
+      "key": "GEN-03",
+      "area": "GEN",
+      "name": "Fact-locking validator",
+      "detail": "reject empty/unknown fact_id, reject numbers not present in referenced facts, reject bullets over 220 chars.",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-02"
+      ],
+      "refs": [
+        "RF-5.1",
+        "§9.2"
+      ],
+      "acceptance": [
+        "reject empty/unknown fact_id, reject numbers not present in referenced facts, reject bullets over 220 chars.",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 58,
+      "key": "GEN-04",
+      "area": "GEN",
+      "name": "Humanizer pass, then re-run the numeric check (rewriting can introduce numbers)",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "GEN-03"
+      ],
+      "refs": [
+        "§9.2 step 3"
+      ],
+      "acceptance": [
+        "Humanizer pass, then re-run the numeric check (rewriting can introduce numbers)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 59,
+      "key": "GEN-05",
+      "area": "GEN",
+      "name": "Suggested-facts queue: inferred facts go to the user as a question, never into the CV",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-03"
+      ],
+      "refs": [
+        "RF-5.2"
+      ],
+      "acceptance": [
+        "Suggested-facts queue: inferred facts go to the user as a question, never into the CV",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 60,
+      "key": "GEN-06",
+      "area": "GEN",
+      "name": "Content tree builder producing the GenerateRequest payload (validated with min(1) factIds per bullet)",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-04"
+      ],
+      "refs": [
+        "§6"
+      ],
+      "acceptance": [
+        "Content tree builder producing the GenerateRequest payload (validated with min(1) factIds per bullet)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 61,
+      "key": "DOC-01",
+      "area": "DOC",
+      "name": "docgen: python-docx builder driven entirely by format_spec (fonts, sizes, italic dates, hyperlinks, tab stops)",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "L",
+      "depends_on": [
+        "SPIKE-01"
+      ],
+      "refs": [
+        "§11.2",
+        "RF-14.4"
+      ],
+      "acceptance": [
+        "docgen: python-docx builder driven entirely by format_spec (fonts, sizes, italic dates, hyperlinks, tab stops)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 62,
+      "key": "DOC-02",
+      "area": "DOC",
+      "name": "Pagination measurement with real font metrics (Pillow + font file); returns fill_pct, line_count",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "done",
+      "estimate": "M",
+      "depends_on": [
+        "DOC-01"
+      ],
+      "refs": [
+        "TR-FMT-2"
+      ],
+      "acceptance": [
+        "Pagination measurement with real font metrics (Pillow + font file); returns fill_pct, line_count",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DOC-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 63,
+      "key": "DOC-03",
+      "area": "DOC",
+      "name": "Convergence loop: compress when > 0.98, enrich when < 0.90, max iterations, explicit overflow warning",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DOC-02"
+      ],
+      "refs": [
+        "§11.2",
+        "TR-FMT-1"
+      ],
+      "acceptance": [
+        "Convergence loop: compress when > 0.98, enrich when < 0.90, max iterations, explicit overflow warning",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DOC-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 64,
+      "key": "DOC-04",
+      "area": "DOC",
+      "name": "Preview image rendering per the SPIKE-01 decision; return preview_png_b64",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SPIKE-01",
+        "DOC-03"
+      ],
+      "refs": [
+        "§12.1",
+        "RF-5.6"
+      ],
+      "acceptance": [
+        "Preview image rendering per the SPIKE-01 decision; return preview_png_b64",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SPIKE-01",
+        "DOC-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 65,
+      "key": "DOC-05",
+      "area": "DOC",
+      "name": "Fidelity test: same content tree through docx and preview ⇒ equal page count and line breaks",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DOC-04"
+      ],
+      "refs": [
+        "§12.1"
+      ],
+      "acceptance": [
+        "Fidelity test: same content tree through docx and preview ⇒ equal page count and line breaks",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DOC-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 66,
+      "key": "DOC-06",
+      "area": "DOC",
+      "name": "POST /docgen endpoint with shared-secret auth; keep it off the public path",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DOC-03"
+      ],
+      "refs": [
+        "§12"
+      ],
+      "acceptance": [
+        "POST /docgen endpoint with shared-secret auth; keep it off the public path",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DOC-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 67,
+      "key": "GEN-07",
+      "area": "GEN",
+      "name": "P7 UI: preview image, metrics strip, checks panel, and per-bullet traceability to fact_id + provenance",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "DOC-06"
+      ],
+      "refs": [
+        "P7",
+        "RF-5.1"
+      ],
+      "acceptance": [
+        "P7 UI: preview image, metrics strip, checks panel, and per-bullet traceability to fact_id + provenance",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DOC-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 68,
+      "key": "GEN-08",
+      "area": "GEN",
+      "name": "Download endpoint with short-lived signed URLs (15 min), ownership-checked",
+      "detail": "",
+      "phase": "Phase 6 — Generation and format (highest technical risk)",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "GEN-07",
+        "DATA-04"
+      ],
+      "refs": [
+        "TR-SEC-9"
+      ],
+      "acceptance": [
+        "Download endpoint with short-lived signed URLs (15 min), ownership-checked",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-07",
+        "DATA-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 69,
+      "key": "SEC-01",
+      "area": "SEC",
+      "name": "Treat posting + CV text as untrusted data: explicit delimiters, system-prompt statement, never instructions",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-07"
+      ],
+      "refs": [
+        "TR-SEC-1"
+      ],
+      "acceptance": [
+        "Treat posting + CV text as untrusted data: explicit delimiters, system-prompt statement, never instructions",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 70,
+      "key": "SEC-02",
+      "area": "SEC",
+      "name": "Injection detection and logging (role reassignment, \"ignore previous instructions\")",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "SEC-01"
+      ],
+      "refs": [
+        "TR-SEC-2"
+      ],
+      "acceptance": [
+        "Injection detection and logging (role reassignment, \"ignore previous instructions\")",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SEC-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 71,
+      "key": "SEC-03",
+      "area": "SEC",
+      "name": "Payload caps and file validation (posting 20k, CV text 100k, chat 2k, file 5 MB)",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "JD-02"
+      ],
+      "refs": [
+        "TR-RL-6"
+      ],
+      "acceptance": [
+        "Payload caps and file validation (posting 20k, CV text 100k, chat 2k, file 5 MB)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "JD-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 72,
+      "key": "SEC-04",
+      "area": "SEC",
+      "name": "Security headers (CSP, HSTS) at the Next.js config level",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "TR-SEC-12"
+      ],
+      "acceptance": [
+        "Security headers (CSP, HSTS) at the Next.js config level",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 73,
+      "key": "SEC-05",
+      "area": "SEC",
+      "name": "Log-redaction lint rule + test proving no content field can be logged",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-06"
+      ],
+      "refs": [
+        "TR-SEC-7"
+      ],
+      "acceptance": [
+        "Log-redaction lint rule + test proving no content field can be logged",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 74,
+      "key": "RL-01",
+      "area": "RL",
+      "name": "Three rate-limit layers: IP, Clerk user, global daily budget (Upstash)",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-09"
+      ],
+      "refs": [
+        "RF-15.1",
+        "2",
+        "3"
+      ],
+      "acceptance": [
+        "Three rate-limit layers: IP, Clerk user, global daily budget (Upstash)",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-09"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 75,
+      "key": "RL-02",
+      "area": "RL",
+      "name": "429 responses with Retry-After and localized copy",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "RL-01"
+      ],
+      "refs": [
+        "RF-15.5"
+      ],
+      "acceptance": [
+        "429 responses with Retry-After and localized copy",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "RL-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 76,
+      "key": "RL-03",
+      "area": "RL",
+      "name": "Global budget: degraded mode at DAILY_TOKEN_BUDGET, 503 kill switch at the hard cap",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "RL-01",
+        "LLM-05"
+      ],
+      "refs": [
+        "RF-15.4"
+      ],
+      "acceptance": [
+        "Global budget: degraded mode at DAILY_TOKEN_BUDGET, 503 kill switch at the hard cap",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "RL-01",
+        "LLM-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 77,
+      "key": "RL-04",
+      "area": "RL",
+      "name": "RATE_LIMIT_ENABLED=false bypass, honored in dev/test only and never in production",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "XS",
+      "depends_on": [
+        "RL-01"
+      ],
+      "refs": [
+        "RF-15.6",
+        "TR-RL-1"
+      ],
+      "acceptance": [
+        "RATE_LIMIT_ENABLED=false bypass, honored in dev/test only and never in production",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "RL-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 78,
+      "key": "RL-05",
+      "area": "RL",
+      "name": "BYO-key: AES-256-GCM storage, write-only API, key_hint, test button, no silent fallback",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "DATA-04",
+        "RL-01"
+      ],
+      "refs": [
+        "RF-15.22…27"
+      ],
+      "acceptance": [
+        "BYO-key: AES-256-GCM storage, write-only API, key_hint, test button, no silent fallback",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-04",
+        "RL-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 79,
+      "key": "RL-06",
+      "area": "RL",
+      "name": "Retrieval-limited prompting: send only relevant facts, never the whole profile",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "CHAT-01"
+      ],
+      "refs": [
+        "TR-RL-8"
+      ],
+      "acceptance": [
+        "Retrieval-limited prompting: send only relevant facts, never the whole profile",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 80,
+      "key": "SEC-06",
+      "area": "SEC",
+      "name": "Secret audit: no provider key or service-role key reachable from the client bundle",
+      "detail": "",
+      "phase": "Phase 7 — Security and limits",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "LLM-02"
+      ],
+      "refs": [
+        "TR-SEC-3"
+      ],
+      "acceptance": [
+        "Secret audit: no provider key or service-role key reachable from the client bundle",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 81,
+      "key": "PRIV-01",
+      "area": "PRIV",
+      "name": "Delete flows: single CV, profile (cascade), account (hard delete + Clerk). Double confirmation",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-04"
+      ],
+      "refs": [
+        "RF-7.3",
+        "§16"
+      ],
+      "acceptance": [
+        "Delete flows: single CV, profile (cascade), account (hard delete + Clerk). Double confirmation",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-04"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 82,
+      "key": "PRIV-02",
+      "area": "PRIV",
+      "name": "Data export: JSON (profile, facts, analyses) + generated .docx files",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "PRIV-01"
+      ],
+      "refs": [
+        "§16.3"
+      ],
+      "acceptance": [
+        "Data export: JSON (profile, facts, analyses) + generated .docx files",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PRIV-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 83,
+      "key": "PRIV-03",
+      "area": "PRIV",
+      "name": "Privacy page in ES and EN: what is stored, what is not, subprocessor list, international transfer disclosure",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "I18N-02"
+      ],
+      "refs": [
+        "P12",
+        "§18.2"
+      ],
+      "acceptance": [
+        "Privacy page in ES and EN: what is stored, what is not, subprocessor list, international transfer disclosure",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 84,
+      "key": "PRIV-04",
+      "area": "PRIV",
+      "name": "Terms page in ES and EN",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "I18N-02"
+      ],
+      "refs": [
+        "P12"
+      ],
+      "acceptance": [
+        "Terms page in ES and EN",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 85,
+      "key": "PRIV-05",
+      "area": "PRIV",
+      "name": "Consent capture at sign-up with a Ley 1581-shaped *autorización* + *aviso de privacidad* link",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-08"
+      ],
+      "refs": [
+        "§21"
+      ],
+      "acceptance": [
+        "Consent capture at sign-up with a Ley 1581-shaped *autorización* + *aviso de privacidad* link",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-08"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 86,
+      "key": "PRIV-06",
+      "area": "PRIV",
+      "name": "Archive each subprocessor DPA in /legal/dpas/ with retrieval date; record countersignature status",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P3",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [],
+      "refs": [
+        "§8",
+        "§23.2"
+      ],
+      "acceptance": [
+        "Archive each subprocessor DPA in /legal/dpas/ with retrieval date; record countersignature status",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [],
+      "depends_on_ext": []
+    },
+    {
+      "id": 87,
+      "key": "PRIV-07",
+      "area": "PRIV",
+      "name": "Settings page P9: language, usage counters, data export/delete",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "PRIV-01"
+      ],
+      "refs": [
+        "P9"
+      ],
+      "acceptance": [
+        "Settings page P9: language, usage counters, data export/delete",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PRIV-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 88,
+      "key": "PRIV-08",
+      "area": "PRIV",
+      "name": "*Keep my data* toggle wired to DATA-09, off by default and reversible",
+      "detail": "",
+      "phase": "Phase 8 — Privacy and lifecycle",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DATA-09",
+        "PRIV-07"
+      ],
+      "refs": [
+        "§15"
+      ],
+      "acceptance": [
+        "*Keep my data* toggle wired to DATA-09, off by default and reversible",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-09",
+        "PRIV-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 89,
+      "key": "I18N-01",
+      "area": "I18N",
+      "name": "next-intl setup with [locale] segment; middleware resolves preference → cookie → Accept-Language → es",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "SETUP-01"
+      ],
+      "refs": [
+        "RF-8.1",
+        "2",
+        "TR-I18N-7"
+      ],
+      "acceptance": [
+        "next-intl setup with [locale] segment; middleware resolves preference → cookie → Accept-Language → es",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SETUP-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 90,
+      "key": "I18N-02",
+      "area": "I18N",
+      "name": "messages/es.json and messages/en.json for every screen. Spanish is authored first",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "I18N-01"
+      ],
+      "refs": [
+        "RF-8.4"
+      ],
+      "acceptance": [
+        "messages/es.json and messages/en.json for every screen. Spanish is authored first",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 91,
+      "key": "I18N-03",
+      "area": "I18N",
+      "name": "Locale switcher that preserves route, query and in-progress state, triggering no LLM call",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "I18N-01"
+      ],
+      "refs": [
+        "TR-I18N-3",
+        "AC-6"
+      ],
+      "acceptance": [
+        "Locale switcher that preserves route, query and in-progress state, triggering no LLM call",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 92,
+      "key": "I18N-04",
+      "area": "I18N",
+      "name": "Dual-axis language logic",
+      "detail": "UI language vs CV language (from the posting); section headings from format_spec.headings[cvLang].",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "I18N-01",
+        "DOC-01"
+      ],
+      "refs": [
+        "RF-8.5",
+        "TR-I18N-5",
+        "6"
+      ],
+      "acceptance": [
+        "UI language vs CV language (from the posting); section headings from format_spec.headings[cvLang].",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-01",
+        "DOC-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 93,
+      "key": "I18N-05",
+      "area": "I18N",
+      "name": "Locale-aware dates and numbers via Intl.*",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P3",
+      "status": "pending",
+      "estimate": "XS",
+      "depends_on": [
+        "I18N-01"
+      ],
+      "refs": [
+        "TR-I18N-4"
+      ],
+      "acceptance": [
+        "Locale-aware dates and numbers via Intl.*",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 94,
+      "key": "I18N-06",
+      "area": "I18N",
+      "name": "Lint rule rejecting hardcoded user-facing strings in app/ and components/",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "I18N-02"
+      ],
+      "refs": [
+        "TR-I18N-1"
+      ],
+      "acceptance": [
+        "Lint rule rejecting hardcoded user-facing strings in app/ and components/",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 95,
+      "key": "I18N-07",
+      "area": "I18N",
+      "name": "CI locale-parity check; the build fails if a key is missing in either language",
+      "detail": "",
+      "phase": "Phase 9 — Internationalization",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "I18N-02"
+      ],
+      "refs": [
+        "TR-TEST-3"
+      ],
+      "acceptance": [
+        "CI locale-parity check; the build fails if a key is missing in either language",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "I18N-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 96,
+      "key": "GUEST-01",
+      "area": "GUEST",
+      "name": "Signed, HttpOnly guest_session cookie + guest session record; no Clerk anonymous accounts",
+      "detail": "",
+      "phase": "Phase 10 — Guest mode",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "DATA-01"
+      ],
+      "refs": [
+        "decision 1"
+      ],
+      "acceptance": [
+        "Signed, HttpOnly guest_session cookie + guest session record; no Clerk anonymous accounts",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 97,
+      "key": "GUEST-02",
+      "area": "GUEST",
+      "name": "Hard profile requirement gate on /start, blocking modal, pasted posting preserved in localStorage",
+      "detail": "",
+      "phase": "Phase 10 — Guest mode",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "PROF-01",
+        "GUEST-01"
+      ],
+      "refs": [
+        "decision 4",
+        "P5"
+      ],
+      "acceptance": [
+        "Hard profile requirement gate on /start, blocking modal, pasted posting preserved in localStorage",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "PROF-01",
+        "GUEST-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 98,
+      "key": "GUEST-03",
+      "area": "GUEST",
+      "name": "Guest gate modal (P14) triggered on download, never before the first generation completes",
+      "detail": "",
+      "phase": "Phase 10 — Guest mode",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GUEST-01"
+      ],
+      "refs": [
+        "P14"
+      ],
+      "acceptance": [
+        "Guest gate modal (P14) triggered on download, never before the first generation completes",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GUEST-01"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 99,
+      "key": "GUEST-04",
+      "area": "GUEST",
+      "name": "Migration on sign-up: re-key guest facts, answers and the generated CV to the new sub",
+      "detail": "",
+      "phase": "Phase 10 — Guest mode",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GUEST-03"
+      ],
+      "refs": [
+        "RF-1.3",
+        "§10"
+      ],
+      "acceptance": [
+        "Migration on sign-up: re-key guest facts, answers and the generated CV to the new sub",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GUEST-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 100,
+      "key": "OBS-01",
+      "area": "OBS",
+      "name": "Admin usage dashboard (allowlist, returns 404 to others): cost/day, provider failure rate, p95 latency",
+      "detail": "",
+      "phase": "Phase 11 — Observability",
+      "priority": "P3",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-06"
+      ],
+      "refs": [
+        "P15"
+      ],
+      "acceptance": [
+        "Admin usage dashboard (allowlist, returns 404 to others): cost/day, provider failure rate, p95 latency",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 101,
+      "key": "OBS-02",
+      "area": "OBS",
+      "name": "Quality metrics: hallucination rate (rejected bullets / total), forced-generation rate, pagination iterations per document",
+      "detail": "",
+      "phase": "Phase 11 — Observability",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-03"
+      ],
+      "refs": [
+        "§18"
+      ],
+      "acceptance": [
+        "Quality metrics: hallucination rate (rejected bullets / total), forced-generation rate, pagination iterations per document",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-03"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 102,
+      "key": "OBS-03",
+      "area": "OBS",
+      "name": "Error tracking on a free tier, with content scrubbing",
+      "detail": "",
+      "phase": "Phase 11 — Observability",
+      "priority": "P3",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "SEC-05"
+      ],
+      "refs": [
+        "§18"
+      ],
+      "acceptance": [
+        "Error tracking on a free tier, with content scrubbing",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "SEC-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 103,
+      "key": "TEST-01",
+      "area": "TEST",
+      "name": "Unit: fact-locking validator (incl. an injected hallucinated number being rejected), confidence scorer, pagination math",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-03",
+        "CHAT-02"
+      ],
+      "refs": [
+        "TR-TEST-1"
+      ],
+      "acceptance": [
+        "Unit: fact-locking validator (incl. an injected hallucinated number being rejected), confidence scorer, pagination math",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-03",
+        "CHAT-02"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 104,
+      "key": "TEST-02",
+      "area": "TEST",
+      "name": "Contract: zod schemas accept valid and reject invalid LLM payloads",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "DATA-07"
+      ],
+      "refs": [
+        "§19"
+      ],
+      "acceptance": [
+        "Contract: zod schemas accept valid and reject invalid LLM payloads",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "DATA-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 105,
+      "key": "TEST-03",
+      "area": "TEST",
+      "name": "Integration: full pipeline against the mock provider with deterministic fixtures",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "LLM-09"
+      ],
+      "refs": [
+        "§19"
+      ],
+      "acceptance": [
+        "Integration: full pipeline against the mock provider with deterministic fixtures",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "LLM-09"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 106,
+      "key": "TEST-04",
+      "area": "TEST",
+      "name": "Golden files: known profile + posting ⇒ expected content tree",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P1",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "GEN-06"
+      ],
+      "refs": [
+        "§19"
+      ],
+      "acceptance": [
+        "Golden files: known profile + posting ⇒ expected content tree",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GEN-06"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 107,
+      "key": "TEST-05",
+      "area": "TEST",
+      "name": "E2E (Playwright): guest path (paste → answer → preview → gate) and returning-user path",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "L",
+      "depends_on": [
+        "GUEST-04",
+        "GEN-08"
+      ],
+      "refs": [
+        "AC-1",
+        "2"
+      ],
+      "acceptance": [
+        "E2E (Playwright): guest path (paste → answer → preview → gate) and returning-user path",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "GUEST-04",
+        "GEN-08"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 108,
+      "key": "TEST-06",
+      "area": "TEST",
+      "name": "Accessibility pass: keyboard-only completion, focus rings, live regions on chat, AA contrast",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "CHAT-07"
+      ],
+      "refs": [
+        "§7"
+      ],
+      "acceptance": [
+        "Accessibility pass: keyboard-only completion, focus rings, live regions on chat, AA contrast",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 109,
+      "key": "TEST-07",
+      "area": "TEST",
+      "name": "Responsive pass: P6 with stacked panels and a chat bottom sheet on mobile",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P2",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "CHAT-07"
+      ],
+      "refs": [
+        "§7"
+      ],
+      "acceptance": [
+        "Responsive pass: P6 with stacked panels and a chat bottom sheet on mobile",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "CHAT-07"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 110,
+      "key": "QA-01",
+      "area": "QA",
+      "name": "Verify acceptance criteria AC-1…AC-10 from app_flow.md §9 and record evidence",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "M",
+      "depends_on": [
+        "TEST-05"
+      ],
+      "refs": [
+        "AC-1…10"
+      ],
+      "acceptance": [
+        "Verify acceptance criteria AC-1…AC-10 from app_flow.md §9 and record evidence",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "TEST-05"
+      ],
+      "depends_on_ext": []
+    },
+    {
+      "id": 111,
+      "key": "LAUNCH-01",
+      "area": "LAUNCH",
+      "name": "Pre-launch checklist: ZDR enabled, regions pinned, rate limits live, retention job running, privacy page published in ES, DPAs archived",
+      "detail": "",
+      "phase": "Phase 12 — QA and launch",
+      "priority": "P0",
+      "status": "pending",
+      "estimate": "S",
+      "depends_on": [
+        "QA-01"
+      ],
+      "refs": [
+        "§22",
+        "§23"
+      ],
+      "acceptance": [
+        "Pre-launch checklist: ZDR enabled, regions pinned, rate limits live, retention job running, privacy page published in ES, DPAs archived",
+        "Definition of Done (TASKS.md §19) satisfied"
+      ],
+      "depends_on_keys": [
+        "QA-01"
+      ],
+      "depends_on_ext": []
+    }
+  ]
+}
