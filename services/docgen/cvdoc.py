@@ -12,6 +12,7 @@ from copy import deepcopy
 from builder import build_docx
 from format_specs import DEFAULT_FORMAT_SPEC
 from measure import measure
+from preview import build_html  # re-exported for run_spike.py; the replica lives in preview.py
 
 # ---------------------------------------------------------------- fixtures
 
@@ -182,65 +183,6 @@ FIXTURES = {
         "languages": ["Español (nativo)", "Inglés B2", "Portugués A2"],
     },
 }
-
-# ---------------------------------------------------------------- html replica
-
-def build_html(content: dict, spec: dict) -> str:
-    """Option A replica: same tree, same spec, CSS instead of python-docx."""
-    m = spec["marginsIn"]
-    ps = spec["pageSizeIn"]
-    headings = spec["headings"]["en"]
-    css = f"""
-@page {{ size: {ps['w']}in {ps['h']}in; margin: {m['top']}in {m['right']}in {m['bottom']}in {m['left']}in; }}
-@media screen {{ body {{ padding: {m['top']}in {m['right']}in {m['bottom']}in {m['left']}in; }} }}
-* {{ margin: 0; padding: 0; box-sizing: border-box; }}
-body {{ font-family: {spec['font']}, serif; font-size: {spec['bodySizePt']}pt;
-        line-height: {spec['lineSpacing']}; text-align: left; }}
-.name {{ font-size: {spec['nameSizePt']}pt; font-weight: {'bold' if spec['nameBold'] else 'normal'}; }}
-h2 {{ font-size: {spec['bodySizePt']}pt; font-weight: bold; margin-top: {spec['headingSpaceBeforePt']}pt; }}
-.item {{ margin-top: {spec['itemSpaceBeforePt']}pt; }}
-.row {{ display: flex; justify-content: space-between; }}
-.dates {{ font-style: {'italic' if spec['dateItalic'] else 'normal'}; white-space: nowrap; }}
-li {{ list-style: none; margin-top: {spec['itemSpaceBeforePt']}pt;
-      padding-left: 0.25in; text-indent: -0.25in; }}
-a {{ color: #{spec['linkColor']}; text-decoration: {'underline' if spec['linkUnderline'] else 'none'}; }}
-"""
-
-    def esc(s):
-        return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
-
-    parts = [f"<!doctype html><html><head><meta charset='utf-8'><style>{css}</style></head><body>"]
-    parts.append(f"<div class='name'>{esc(content['header']['name'])}</div>")
-    parts.append(f"<div>{esc(content['header']['contactLine'])}</div>")
-    for section in spec["sectionOrder"]:
-        data = content.get(section)
-        if not data:
-            continue
-        parts.append(f"<h2>{headings[section]}</h2>")
-        if section == "summary":
-            parts.append(f"<div>{esc(data)}</div>")
-        elif section in ("experience", "projects"):
-            for item in data:
-                if section == "experience":
-                    right = f"{item['start']} – {item['end']}"
-                    parts.append(f"<div class='item row'><span>{esc(item['role'])}</span>"
-                                 f"<span class='dates'>{esc(right)}</span></div>")
-                    parts.append(f"<div>{esc(item['company'])}</div>")
-                else:
-                    right = esc(item.get("stack", ""))
-                    parts.append(f"<div class='item row'><span>{esc(item['name'])}</span>"
-                                 f"<span class='dates'>{right}</span></div>")
-                    if item.get("url"):
-                        parts.append(f"<div class='item'><a href='{item['url']}'>{item['url']}</a></div>")
-                parts.append("<ul>")
-                for b in item["bullets"]:
-                    parts.append(f"<li>•&#9;&nbsp;{esc(b['text'])}</li>")
-                parts.append("</ul>")
-        else:
-            for entry in data:
-                parts.append(f"<div class='item'>{esc(entry)}</div>")
-    parts.append("</body></html>")
-    return "".join(parts)
 
 def fixture_content(name: str) -> dict:
     return deepcopy(FIXTURES[name])

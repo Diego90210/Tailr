@@ -19,9 +19,9 @@ describe("prompt contract (RF-11.6)", () => {
   it("versions every prompt with front matter whose name matches its file", () => {
     for (const name of PROMPTS) {
       const text = read(name);
-      expect(text.startsWith("---\n")).toBe(true);
-      expect(text).toMatch(new RegExp(`\\nname: ${name}\\n`));
-      expect(text).toMatch(/\nversion: \d+\.\d+\.\d+\n/);
+      expect(text).toMatch(/^---\r?\n/);
+      expect(text).toMatch(new RegExp(`\\r?\\nname: ${name}\\r?\\n`));
+      expect(text).toMatch(/\r?\nversion: \d+\.\d+\.\d+\r?\n/);
     }
   });
 
