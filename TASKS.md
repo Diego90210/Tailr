@@ -226,10 +226,10 @@ Anything not on this chain can be parallelized.
 | `GEN-06` | Content tree builder producing the `GenerateRequest` payload (validated with `min(1)` factIds per bullet). | **P0** | TODO | M | GEN-04 | §6 |
 | `DOC-01` | docgen: python-docx builder driven entirely by `format_spec` (fonts, sizes, italic dates, hyperlinks, tab stops). | **P0** | DONE | L | SPIKE-01 | §11.2, RF-14.4 |
 | `DOC-02` | Pagination measurement with real font metrics (Pillow + font file); returns `fill_pct`, `line_count`. | **P0** | DONE | M | DOC-01 | TR-FMT-2 |
-| `DOC-03` | Convergence loop: compress when > 0.98, enrich when < 0.90, max iterations, explicit overflow warning. | **P0** | TODO | M | DOC-02 | §11.2, TR-FMT-1 |
-| `DOC-04` | Preview image rendering per the SPIKE-01 decision; return `preview_png_b64`. | **P0** | TODO | M | SPIKE-01, DOC-03 | §12.1, RF-5.6 |
+| `DOC-03` | Convergence loop: compress when > 0.98, enrich when < 0.90, max iterations, explicit overflow warning. | **P0** | DONE | M | DOC-02 | §11.2, TR-FMT-1 |
+| `DOC-04` | Preview image rendering per the SPIKE-01 decision; return `preview_png_b64`. | **P0** | DONE | M | SPIKE-01, DOC-03 | §12.1, RF-5.6 |
 | `DOC-05` | Fidelity test: same content tree through docx and preview ⇒ equal page count and line breaks. | **P1** | TODO | M | DOC-04 | §12.1 |
-| `DOC-06` | `POST /docgen` endpoint with shared-secret auth; keep it off the public path. | **P0** | TODO | S | DOC-03 | §12 |
+| `DOC-06` | `POST /docgen` endpoint with shared-secret auth; keep it off the public path. | **P0** | DONE | S | DOC-03 | §12 |
 | `GEN-07` | P7 UI: preview image, metrics strip, checks panel, and **per-bullet traceability** to `fact_id` + provenance. | **P0** | TODO | L | DOC-06 | P7, RF-5.1 |
 | `GEN-08` | Download endpoint with short-lived signed URLs (15 min), ownership-checked. | **P0** | TODO | S | GEN-07, DATA-04 | TR-SEC-9 |
 
@@ -239,7 +239,7 @@ Anything not on this chain can be parallelized.
 
 | ID | Task | Pri | Status | Est | Depends | Refs |
 |---|---|---|---|---|---|---|
-| `SEC-01` | Treat posting + CV text as untrusted data: explicit delimiters, system-prompt statement, never instructions. | **P0** | TODO | S | LLM-07 | TR-SEC-1 |
+| `SEC-01` | Treat posting + CV text as untrusted data: explicit delimiters, system-prompt statement, never instructions. | **P0** | DONE | S | LLM-07 | TR-SEC-1 |
 | `SEC-02` | Injection detection and logging (role reassignment, "ignore previous instructions"). | **P1** | TODO | S | SEC-01 | TR-SEC-2 |
 | `SEC-03` | Payload caps and file validation (posting 20k, CV text 100k, chat 2k, file 5 MB). | **P0** | TODO | S | JD-02 | TR-RL-6 |
 | `SEC-04` | Security headers (CSP, HSTS) at the Next.js config level. | **P2** | TODO | S | SETUP-01 | TR-SEC-12 |

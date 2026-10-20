@@ -113,10 +113,15 @@ tailr/
 │       │   └── en.json
 │       └── tests/
 ├── services/
-│   └── docgen/                     # Python: docx + pagination
-│       ├── api.py
+│   └── docgen/                     # Python: docx + pagination + preview
+│       ├── api/
+│       │   ├── __init__.py
+│       │   └── health.py           # Vercel entrypoint: health + POST /docgen
+│       ├── endpoint.py             # shared-secret auth, GenerateRequest, response
 │       ├── builder.py
 │       ├── measure.py
+│       ├── converge.py
+│       ├── preview.py              # HTML replica + headless-Chromium PNG
 │       ├── format_specs.py
 │       └── requirements.txt
 ├── prompts/                        # versioned Markdown skills
@@ -632,8 +637,11 @@ Rules:
 4. if fill < 0.90 and spare facts exist:
      allow enriching bullets
      goto 1     (max 2 iterations)
-5. return { docx_path, fill_pct, line_count, page_count }
+5. return { docx, content, fill_pct, line_count, page_count, missing_fonts, iterations, warning }
+   (`warning = "over_one_page"` when the best attempt still exceeds one page; TR-FMT-1)
 ```
+
+`converge()` receives `compress` / `enrich` callbacks from the caller — which bullets are expendable or spare is business logic, so docgen never decides it. A callback returns a new content tree, or `None` when nothing is left to cut or add.
 
 `CALIBRATION` (0.93) is a fixed factor derived from the SPIKE-01 Word oracle: the raw line-box sum over-counts `space_before`/heading gaps ~6–8%, so without it `fill_pct` would exceed true occupancy and the 0.90/0.98 thresholds (RF-14.2) would underfill the page. Re-derive it only if the spec or the oracle corpus changes.
 
@@ -652,12 +660,16 @@ Rules:
 |---|---|
 | Runtime | Python 3.11 on Vercel serverless functions (see the renderer note below) |
 | Endpoint | `POST /docgen` (private, server-to-server only) |
-| Auth | Shared secret header (`DOCGEN_SHARED_SECRET`), plus Vercel deployment protection |
+| Auth | `Authorization: Bearer <DOCGEN_SHARED_SECRET>`, plus Vercel deployment protection |
 | Libraries | `python-docx`, `Pillow`, plus a document renderer for the preview image (see §12.1) |
 | Input | `GenerateRequest` (§6) |
-| Output | `{ docx_b64, preview_png_b64, fill_pct, line_count, page_count, missing_fonts[] }` |
+| Output | `{ docx_b64, preview_png_b64, fill_pct, line_count, page_count, missing_fonts[], iterations, warning }` (`warning = "over_one_page"` possible, §11.2) |
 | Timeout budget | < 10 s p95 for the `.docx`; < 15 s p95 including the preview render |
 | Size | Keep the bundle small; the renderer is the only heavy dependency |
+
+`services/docgen/endpoint.py` owns the boundary: bearer-secret check, `GenerateRequest` validation (a malformed tree is a `400`, never a builder `500`), `converge()` and one preview render. An unset `DOCGEN_SHARED_SECRET` fails closed with `503 DOCGEN_NOT_CONFIGURED`; a bad token is `401`. Errors use the §13 envelope. If `CHROME_BIN`/the browser is unavailable the endpoint returns `503 PREVIEW_UNAVAILABLE` instead of a silent blank image — the `.docx` renders, but the P7 preview is part of the contract, so this is a deployment failure the caller must see.
+
+Vercel routes every request to the single Python entrypoint (`api/health.py`, SETUP-06), which dispatches `GET` health and `POST /docgen` on `self.path`; the endpoint is not exposed through the Next.js app's public `/api` surface.
 
 ### 12.1 Preview image rendering (decision 6)
 
@@ -677,6 +689,8 @@ Options, in order of preference:
 **Recommendation:** start with **A**, and add a fidelity test that renders the same content tree both ways and compares page count, line breaks and `fill_pct`. Keep the `/docgen` contract fixed (`preview_png_b64`) so moving to **B** later is a hosting decision, not a rewrite.
 
 **SPIKE-01 verdict (2026-10-07): A confirmed.** On a 5-fixture corpus with Word as oracle: A matched `page_count` and `line_count` 5/5 (mean line-break match 0.967, `fill_pct` delta ≤ 0.04); the LibreOffice container substituted NotoSerif for Cambria and diverged 2/5 on line count (mean match 0.843, fill delta up to 0.12). Details: `SPIKE-01.md`, raw data `services/docgen/spike_output/report.md`.
+
+Implemented in `services/docgen/preview.py`: `build_html(content, spec, locale)` is the one replica shared with the spike, and `render_png` / `preview_png_b64` screenshot page 1 with a Chromium-family binary (`CHROME_BIN`, else a local Edge/Chrome/Chromium) at the spec's page size ×96 dpi. The binary is the deployment dependency; the module raises `PreviewRenderError` instead of returning a blank image.
 
 PDF export is **deferred** (PRD §21.1, decision 2). If it is added later it must not run inside the request path.
 
@@ -973,8 +987,9 @@ UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
 
 # Docgen service
+CHROME_BIN=                         # headless Chromium/Edge for previews; auto-detected locally
 DOCGEN_URL=
-DOCGEN_SHARED_SECRET=
+DOCGEN_SHARED_SECRET=               # bearer token for POST /docgen; keep it server-side
 
 # Feature flags
 ENABLE_GUEST_MODE=true
