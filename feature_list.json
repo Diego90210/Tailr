@@ -27,10 +27,10 @@
   "counts": {
     "total": 111,
     "by_status": {
-      "pending": 92,
+      "pending": 88,
       "in_progress": 0,
       "review": 0,
-      "done": 19,
+      "done": 22,
       "blocked": 0
     },
     "by_priority": {
@@ -290,11 +290,11 @@
       "id": 11,
       "key": "SETUP-07",
       "area": "SETUP",
-      "name": "Supabase project created with region pinned to us-east-1; supabase/migrations wired to CI",
+      "name": "Supabase project created with region pinned to us-east-2; supabase/migrations wired to CI",
       "detail": "",
       "phase": "Phase 0 — Spikes and foundations",
       "priority": "P0",
-      "status": "pending",
+      "status": "done",
       "estimate": "S",
       "depends_on": [
         "SETUP-01"
@@ -303,7 +303,7 @@
         "§18.1"
       ],
       "acceptance": [
-        "Supabase project created with region pinned to us-east-1; supabase/migrations wired to CI",
+        "Supabase project created with region pinned to us-east-2; supabase/migrations wired to CI",
         "Definition of Done (TASKS.md §19) satisfied"
       ],
       "depends_on_keys": [
@@ -319,7 +319,7 @@
       "detail": "",
       "phase": "Phase 0 — Spikes and foundations",
       "priority": "P0",
-      "status": "pending",
+      "status": "done",
       "estimate": "M",
       "depends_on": [
         "SETUP-01"
@@ -2061,7 +2061,7 @@
       "detail": "",
       "phase": "Phase 7 — Security and limits",
       "priority": "P0",
-      "status": "pending",
+      "status": "done",
       "estimate": "S",
       "depends_on": [
         "LLM-02"

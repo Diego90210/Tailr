@@ -124,7 +124,7 @@ Every data element the product touches, with classification.
 |---|---|---|
 | **Browser** | Guest cookie, locale preference, unsaved form drafts in `localStorage` | User's device. Cleared by the user or on logout |
 | **Clerk** | D-01, D-02, D-03, D-04; MFA state; OAuth tokens | Subprocessor, US-hosted. Session management only |
-| **Supabase Postgres** | D-06 … D-12, D-15 … D-17, D-20, D-21, D-22, D-23 | **Pinned to `us-east-1` (N. Virginia)** — see §18.1 |
+| **Supabase Postgres** | D-06 … D-12, D-15 … D-17, D-20, D-21, D-22, D-23 | **Pinned to `us-east-2` (Ohio)** — see §18.1 |
 | **Supabase Storage** | D-18, D-19 | Same region as the database. Private buckets; access only through short-lived signed URLs |
 | **Upstash Redis** | D-24, and the **posting-only** analysis cache | Region co-located with the functions. TTL-bounded. Never holds profile data (see §13.3) |
 | **LLM provider** | In-flight prompt content | Transient, **Zero Data Retention required** (see §8.1). Processed in the US |
@@ -379,12 +379,14 @@ Key rotation: `BYO_KEY_ENCRYPTION_KEY` rotation is a documented procedure that r
 
 | Component | Region | Why |
 |---|---|---|
-| Supabase project (Postgres + Storage) | **`us-east-1` — N. Virginia** | Lowest-latency well-connected region for Colombia, and a *specific* region rather than a general grouping, so the data location is exact |
+| Supabase project (Postgres + Storage) | **`us-east-2` — Ohio** | Same US East corridor as the Vercel functions (the original `us-east-1` pin; the live project was created in `us-east-2` and is reused — see the note below). A *specific* region rather than a general grouping, so the data location is exact |
 | Vercel functions | **`iad1` — Washington, D.C.** | Same coast as the database, so the app↔DB hop stays inside the US East corridor. It is also Vercel's default, avoiding cross-region latency |
 | Upstash Redis | Co-located with the functions | Rate limiting must be fast |
 | LLM provider | United States (Groq retains in US GCP buckets) | No provider offers a Colombia or South America endpoint today |
 
 **Why not São Paulo (`sa-east-1`)?** It is geographically closer to Colombia, but latency to northern South America from São Paulo is typically higher than from US East, and it would split the database away from the functions. It stays as the option to revisit **if data residency in South America becomes a legal requirement**, not a performance one.
+
+**Region deviation (SETUP-07).** The live project (`fmejwdgnqrhgkrayjpkf`) is in **`us-east-2` (Ohio)**, not `us-east-1`. It is a pre-existing project shared with another application (whose tables are unrelated and must be left untouched — Tailr's own tables carry the `tailr_` prefix, see `conventions.md`). Moving it would mean recreating the project and its keys; Ohio and N. Virginia are both US East with no compliance difference, so the deviation is accepted and recorded here. Vercel stays on `iad1`.
 
 Reference: [Supabase — available regions](https://supabase.com/docs/guides/platform/regions). Region lists change; confirm availability in the dashboard at project creation.
 
@@ -463,7 +465,7 @@ Claims in this document are testable. Each one maps to an automated check.
 
 | # | Question | Decision |
 |---|---|---|
-| 1 | Region pinning | Supabase **`us-east-1`** + Vercel **`iad1`** (US East, co-located) — §18.1 |
+| 1 | Region pinning | Supabase **`us-east-2`** + Vercel **`iad1`** (US East, co-located) — §18.1 |
 | 2 | Zero-retention providers | **Groq with ZDR enabled** as primary. The Gemini free tier is **excluded** for profile content because unpaid-service terms allow training on it — §8.1 |
 | 3 | Retention defaults | **Short by default with an opt-in to keep**: 30 days for analyses, conversations and generated CVs; 7 days for guest data — §15 |
 | 4 | DPAs | Publish and archive each subprocessor's addendum in `/legal/dpas/`; see 23.2 for the countersignature caveat |

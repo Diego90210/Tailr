@@ -939,7 +939,7 @@ jobs:
 ```
 
 - Preview deployments for every PR; production on `main`.
-- Migrations applied through `supabase/migrations` in order; never edited after merge.
+- Migrations applied through `supabase/migrations` in order; never edited after merge. The `migrations` CI job runs `supabase db push` on `main` after the tests pass (secrets: `SUPABASE_ACCESS_TOKEN`, `SUPABASE_PROJECT_ID`, `SUPABASE_DB_PASSWORD`).
 - Feature flags in env (`RATE_LIMIT_ENABLED`, `DEGRADED_MODE`, `ENABLE_GUEST_MODE`).
 
 ---

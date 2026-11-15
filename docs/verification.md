@@ -71,6 +71,7 @@ These are the claims that must be provable, not asserted:
 | The LLM is swappable | The pipeline test runs green against the mock provider with no code change |
 | Users cannot read each other's data | An ownership test proves user B receives zero rows for user A |
 | No content leaks to logs | A test greps emitted logs for fixture content and finds none |
+| No secret reaches the client bundle | A test scans `.next/static` for every secret-looking `.env.example` name and its value (SEC-06) |
 
 ## Anti-Patterns (Do Not Do)
 

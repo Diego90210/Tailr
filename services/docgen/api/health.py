@@ -19,6 +19,9 @@ from preview import PreviewRenderError
 
 HEALTH = {"service": "docgen", "status": "ok"}
 DOCGEN_PATHS = ("/docgen", "/api/docgen")
+# an over-limit body is read and thrown away up to this size so the client can read the 413;
+# anything bigger is refused without draining (never read unbounded attacker input)
+MAX_DRAIN_BYTES = 4 * MAX_BODY_BYTES
 
 
 def _error(code: str, message: str) -> dict:
@@ -54,6 +57,9 @@ class handler(BaseHTTPRequestHandler):
         except ValueError:
             raise InvalidRequest("Content-Length must be an integer")
         if length > MAX_BODY_BYTES:
+            # drain first, else the caller sees a reset instead of this 413
+            if length <= MAX_DRAIN_BYTES:
+                self.rfile.read(length)
             raise PayloadTooLarge(f"body exceeds {MAX_BODY_BYTES} bytes")
         raw = self.rfile.read(length)
         try:

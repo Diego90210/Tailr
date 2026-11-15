@@ -18,6 +18,10 @@ if (existsSync(rootEnv)) {
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    // pinned after the 16.4.0 security advisory: the agent build guard must not fire
+    agentUpgrade: "security",
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

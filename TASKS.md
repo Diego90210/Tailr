@@ -132,8 +132,8 @@ Anything not on this chain can be parallelized.
 | `SETUP-04` | Env contract: `.env.example` + boot-time validation that fails fast with a clear message. | **P0** | DONE | S | SETUP-01 | TR-ENV-1,2 |
 | `SETUP-05` | `LICENSE` (MIT), `CONTRIBUTING.md`, `README.md` with local setup. | **P1** | TODO | S | SETUP-01 | PRD §18 |
 | `SETUP-06` | Deploy the skeleton to Vercel (web + docgen), functions pinned to `iad1`. Verify the live URL. | **P0** | DONE | S | SETUP-02 | §18.1 |
-| `SETUP-07` | Supabase project created with region pinned to `us-east-1`; `supabase/migrations` wired to CI. | **P0** | TODO | S | SETUP-01 | §18.1 |
-| `SETUP-08` | Clerk application configured; middleware protects app routes and leaves `/start` public. | **P0** | TODO | M | SETUP-01 | RF-1.1, §14 |
+| `SETUP-07` | Supabase project created with region pinned to `us-east-2`; `supabase/migrations` wired to CI. | **P0** | DONE | S | SETUP-01 | §18.1 |
+| `SETUP-08` | Clerk application configured; middleware protects app routes and leaves `/start` public. | **P0** | DONE | M | SETUP-01 | RF-1.1, §14 |
 | `SETUP-09` | Upstash Redis provisioned; region co-located with the functions. | **P1** | TODO | XS | SETUP-06 | §16 |
 
 ---
@@ -250,7 +250,7 @@ Anything not on this chain can be parallelized.
 | `RL-04` | `RATE_LIMIT_ENABLED=false` bypass, honored in dev/test only and never in production. | **P1** | TODO | XS | RL-01 | RF-15.6, TR-RL-1 |
 | `RL-05` | BYO-key: AES-256-GCM storage, write-only API, `key_hint`, test button, **no silent fallback**. | **P2** | TODO | L | DATA-04, RL-01 | RF-15.22…27 |
 | `RL-06` | Retrieval-limited prompting: send only relevant facts, never the whole profile. | **P1** | TODO | M | CHAT-01 | TR-RL-8 |
-| `SEC-06` | Secret audit: no provider key or service-role key reachable from the client bundle. | **P0** | TODO | S | LLM-02 | TR-SEC-3 |
+| `SEC-06` | Secret audit: no provider key or service-role key reachable from the client bundle. | **P0** | DONE | S | LLM-02 | TR-SEC-3 |
 
 ---
 
