@@ -275,3 +275,8 @@
 - Applied locally. pgTAP passed all 68 assertions (17 new), no advisor warnings on the new tables, and `./init.sh` returned `[OK] Environment ready`. No push or live DATA-04 migration.
 
 - **Live verification:** With the user's direct-push workflow, branch CI passed and `main` fast-forwarded to `2bbbe3a` without a PR. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45504333302) passed all jobs. A read-only check confirmed all three DATA-04 tables with RLS enabled and all four WikiFlash versions still present. DATA-04 is done.
+
+## 2026-11-24 — DATA-05 Tailr access policies (done)
+
+- Replaced inherited grants on the seven older Tailr tables with explicit least-privilege grants, and prevented profiles from linking to private format specs they do not own. Anonymous access remains limited to reading global format specs; usage stays service-insert only.
+- All 77 local pgTAP assertions and `./init.sh` passed. Pushed `88ba865` directly to `main` after branch CI passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45505892653) applied DATA-05; read-only verification confirmed RLS on all 13 Tailr tables, no excess authenticated or unexpected anonymous grants, and all four WikiFlash versions intact.
