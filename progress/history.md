@@ -273,3 +273,5 @@
 
 - Added `tailr_generated_cvs` (ownership through the analysis), `tailr_usage_events` (service-role insert only, explicit `cost_source`), and `tailr_user_api_keys` (ciphertext column, no direct client grants). The app API is responsible for matching the Clerk session to the key owner and returning only masked metadata.
 - Applied locally. pgTAP passed all 68 assertions (17 new), no advisor warnings on the new tables, and `./init.sh` returned `[OK] Environment ready`. No push or live DATA-04 migration.
+
+- **Live verification:** With the user's direct-push workflow, branch CI passed and `main` fast-forwarded to `2bbbe3a` without a PR. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45504333302) passed all jobs. A read-only check confirmed all three DATA-04 tables with RLS enabled and all four WikiFlash versions still present. DATA-04 is done.

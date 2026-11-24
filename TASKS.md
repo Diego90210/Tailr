@@ -145,7 +145,7 @@ Anything not on this chain can be parallelized.
 | `DATA-01` | Migration: `profiles`, `facts`, `experience`, `projects`, `education`, `certifications`. | **P0** | DONE | M | SETUP-07 | §5.1 |
 | `DATA-02` | Migration: `format_specs` + seed the global default (Cambria, name 15pt, body 11pt, italic dates, `#0563C1` links). | **P0** | DONE | S | DATA-01 | §11.1, RF-6.2 |
 | `DATA-03` | Migration: `job_analyses`, `questions`, `conversations`. | **P0** | DONE | M | DATA-01 | §5.1 |
-| `DATA-04` | Migration: `generated_cvs`, `usage_events`, `user_api_keys` (incl. `cost_source`, `key_ciphertext`). | **P0** | TODO | M | DATA-01 | §5.1, §11 |
+| `DATA-04` | Migration: `generated_cvs`, `usage_events`, `user_api_keys` (incl. `cost_source`, `key_ciphertext`). | **P0** | DONE | M | DATA-01 | §5.1, §11 |
 | `DATA-05` | RLS policies on **every** table, using `auth.jwt()->>'sub'`; `usage_events` server-insert only. | **P0** | TODO | M | DATA-01…04 | §5.2, §7 |
 | `DATA-06` | Clerk ↔ Supabase integration: pass the Clerk JWT to Supabase and verify RLS sees the `sub`. | **P0** | TODO | M | SETUP-08, DATA-05 | §14 |
 | `DATA-07` | TS types + zod contracts for profile, analysis and generation (`lib/contracts`). | **P0** | TODO | M | DATA-01 | §6 |
@@ -324,15 +324,15 @@ Anything not on this chain can be parallelized.
 
 A task is `DONE` only when **all** of the following hold:
 
-1. Code merged to `main` with review.
-2. Its specified test exists and passes; if no test is specified, the PR states why.
+1. Code is reviewed and pushed to `main` after branch CI passes; no pull request is required.
+2. Its specified test exists and passes; if no test is specified, the session log states why.
 3. Lint, typecheck and the full CI suite pass.
 4. Any new user-facing string exists in **both** `es` and `en`.
 5. No new secret, no new PII in logs, and no new content field in telemetry.
 6. If it touches the data model: RLS policy included **and** an ownership test added.
 7. If it touches the LLM layer: provider-agnostic (no SDK import outside `lib/llm/providers`).
 8. If it touches formatting: the one-page guarantee still holds on the fixture corpus.
-9. The Status column in this document is updated in the same PR.
+9. The Status column in this document is updated once the delivery is verified.
 10. Any companion document (`PRD.md`, `technical_requirements.md`, `app_flow.md`, `backend_schema.md`) is updated if the task changed a decision.
 
 ---
