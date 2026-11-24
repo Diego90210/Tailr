@@ -260,3 +260,16 @@
 - Pushed `514b5e5` to PR #1. Typecheck now generates Next.js route types; docgen runs on Windows with Cambria, retaining the existing pagination assertions.
 - GitHub Actions `web` and `docgen` both passed on the PR, all 51 local pgTAP assertions passed, and `./init.sh` returned `[OK] Environment ready`.
 - Both live migration secret names are present. Vercel previews still fail separately; no merge or live migration was performed.
+
+## 2026-11-24 — Shared migration history (review)
+
+- Resolved the stash conflict, preserved the session notes, and fast-forwarded local `main` to the PR #1 merge. Production CI had passed both test jobs but refused to push because four existing WikiFlash versions were missing locally.
+- PR #2 stages fail-closed WikiFlash baseline guards only during production deployment. Supabase skips versions already in the ledger; Tailr never replays WikiFlash SQL or repairs its history. The push also skips Vault changes.
+- Disposable database: missing baseline refused, existing ledger and test row unchanged, all three Tailr migrations applied, repeat push a no-op. All 51 pgTAP assertions, `./init.sh`, and both PR #2 CI jobs passed. Review and merge are still needed before verifying the live migration.
+
+- **Live verification:** PR #2 merged at `0e17e23`; [main CI](https://github.com/Diego90210/Tailr/actions/runs/45503023494) applied exactly DATA-01, DATA-02, and DATA-03. DATA-03 is done.
+
+## 2026-11-24 — DATA-04 generated CVs, usage events, BYO keys (review)
+
+- Added `tailr_generated_cvs` (ownership through the analysis), `tailr_usage_events` (service-role insert only, explicit `cost_source`), and `tailr_user_api_keys` (ciphertext column, no direct client grants). The app API is responsible for matching the Clerk session to the key owner and returning only masked metadata.
+- Applied locally. pgTAP passed all 68 assertions (17 new), no advisor warnings on the new tables, and `./init.sh` returned `[OK] Environment ready`. No push or live DATA-04 migration.

@@ -180,7 +180,7 @@ RLS is enabled on **every** table. The ownership predicate is always derived fro
 | `job_analyses`, `questions`, `conversations`, `generated_cvs` | via parent `profile_id` | Own rows | Own rows |
 | `format_specs` | `owner_id is null` (global) or own | Global + own | Own only |
 | `usage_events` | — | ❌ | ❌ (server-insert only) |
-| `user_api_keys` | `user_id = auth.jwt()->>'sub'` | `provider` + `key_hint` only | Insert / delete only |
+| `user_api_keys` | Server matches `user_id` to the Clerk session | `provider` + `key_hint` via the app API only | Save / delete via the app API only |
 
 **Defense in depth:** RLS is the second line. Every mutation also performs a server-side ownership check resolved from the session, so a misconfigured policy alone cannot leak data.
 

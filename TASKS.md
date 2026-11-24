@@ -144,7 +144,7 @@ Anything not on this chain can be parallelized.
 |---|---|---|---|---|---|---|
 | `DATA-01` | Migration: `profiles`, `facts`, `experience`, `projects`, `education`, `certifications`. | **P0** | DONE | M | SETUP-07 | §5.1 |
 | `DATA-02` | Migration: `format_specs` + seed the global default (Cambria, name 15pt, body 11pt, italic dates, `#0563C1` links). | **P0** | DONE | S | DATA-01 | §11.1, RF-6.2 |
-| `DATA-03` | Migration: `job_analyses`, `questions`, `conversations`. | **P0** | TODO | M | DATA-01 | §5.1 |
+| `DATA-03` | Migration: `job_analyses`, `questions`, `conversations`. | **P0** | DONE | M | DATA-01 | §5.1 |
 | `DATA-04` | Migration: `generated_cvs`, `usage_events`, `user_api_keys` (incl. `cost_source`, `key_ciphertext`). | **P0** | TODO | M | DATA-01 | §5.1, §11 |
 | `DATA-05` | RLS policies on **every** table, using `auth.jwt()->>'sub'`; `usage_events` server-insert only. | **P0** | TODO | M | DATA-01…04 | §5.2, §7 |
 | `DATA-06` | Clerk ↔ Supabase integration: pass the Clerk JWT to Supabase and verify RLS sees the `sub`. | **P0** | TODO | M | SETUP-08, DATA-05 | §14 |
