@@ -146,6 +146,11 @@ tailr/
 
 ### 5.1 DDL (Postgres / Supabase)
 
+> The DDL below uses bare table names for readability. The shipped migrations prefix every
+> Tailr table with `tailr_` (`conventions.md`): `tailr_profiles`, `tailr_facts`, …
+> `profiles.format_spec_id` and `format_specs` are created by DATA-02, after the referenced
+> table exists.
+
 ```sql
 -- Identity is provided by Clerk; its JWT `sub` is the user key.
 create table profiles (
@@ -240,7 +245,7 @@ create table questions (
   text         text not null,
   status       text not null default 'open',   -- open | answered | skipped
   answer       text,
-  fact_id      uuid references facts(id),
+  fact_id      uuid references facts(id) on delete set null,
   created_at   timestamptz not null default now()
 );
 

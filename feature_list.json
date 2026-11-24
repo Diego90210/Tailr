@@ -27,11 +27,11 @@
   "counts": {
     "total": 111,
     "by_status": {
-      "pending": 88,
+      "pending": 86,
       "in_progress": 0,
-      "review": 0,
-      "done": 22,
-      "blocked": 0
+      "review": 1,
+      "blocked": 0,
+      "done": 24
     },
     "by_priority": {
       "P0": 61,
@@ -370,7 +370,7 @@
       "detail": "",
       "phase": "Phase 1 — Data layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "done",
       "estimate": "M",
       "depends_on": [
         "SETUP-07"
@@ -395,7 +395,7 @@
       "detail": "",
       "phase": "Phase 1 — Data layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "done",
       "estimate": "S",
       "depends_on": [
         "DATA-01"
@@ -421,7 +421,7 @@
       "detail": "",
       "phase": "Phase 1 — Data layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "review",
       "estimate": "M",
       "depends_on": [
         "DATA-01"
