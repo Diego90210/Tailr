@@ -24,7 +24,8 @@ jobs:
       - run: pnpm test:i18n
 
   docgen:
-    runs-on: ubuntu-latest
+    # Pagination fixtures use the real Cambria font shipped with Windows.
+    runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
