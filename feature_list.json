@@ -27,9 +27,9 @@
   "counts": {
     "total": 111,
     "by_status": {
-      "pending": 85,
+      "pending": 84,
       "in_progress": 0,
-      "review": 0,
+      "review": 1,
       "blocked": 0,
       "done": 26
     },
@@ -472,10 +472,13 @@
       "detail": "",
       "phase": "Phase 1 — Data layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "review",
       "estimate": "M",
       "depends_on": [
-        "DATA-01…04"
+        "DATA-01",
+        "DATA-02",
+        "DATA-03",
+        "DATA-04"
       ],
       "refs": [
         "§5.2",
@@ -485,10 +488,13 @@
         "RLS policies on every table, using auth.jwt()->>'sub'; usage_events server-insert only",
         "Definition of Done (TASKS.md §19) satisfied"
       ],
-      "depends_on_keys": [],
-      "depends_on_ext": [
-        "DATA-01…04"
-      ]
+      "depends_on_keys": [
+        "DATA-01",
+        "DATA-02",
+        "DATA-03",
+        "DATA-04"
+      ],
+      "depends_on_ext": []
     },
     {
       "id": 19,

@@ -184,6 +184,8 @@ RLS is enabled on **every** table. The ownership predicate is always derived fro
 
 **Defense in depth:** RLS is the second line. Every mutation also performs a server-side ownership check resolved from the session, so a misconfigured policy alone cannot leak data.
 
+Anonymous database access is limited to reading global format specs. An authenticated user can link a profile only to a global spec or one they own.
+
 ---
 
 ## 8. Third-party subprocessors
