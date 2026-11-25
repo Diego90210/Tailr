@@ -280,3 +280,9 @@
 
 - Replaced inherited grants on the seven older Tailr tables with explicit least-privilege grants, and prevented profiles from linking to private format specs they do not own. Anonymous access remains limited to reading global format specs; usage stays service-insert only.
 - All 77 local pgTAP assertions and `./init.sh` passed. Pushed `88ba865` directly to `main` after branch CI passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45505892653) applied DATA-05; read-only verification confirmed RLS on all 13 Tailr tables, no excess authenticated or unexpected anonymous grants, and all four WikiFlash versions intact.
+
+## 2026-11-24 — DATA-06 Clerk JWT forwarding (done)
+
+- Added a request-scoped, server-only Supabase client that forwards the default Clerk session JWT and refuses to fall back to anonymous access. Renamed the environment contract and bundle-audit allowlist to `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; left `.env.local` untouched.
+- `./init.sh`, all 77 local pgTAP assertions, and the targeted web tests passed. Two real Clerk development sessions wrote their own profiles on a disposable local Supabase stack. Each session's query for both fixtures returned only its own profile. Both test sessions were revoked and the disposable stack removed.
+- Pushed `3ff8afa` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45534841316) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45534946292) passed; the shared database was already up to date. Hosted Clerk activation remains separate: production Clerk is not configured, and WikiFlash access must be checked before trusting an issuer on the shared project.
