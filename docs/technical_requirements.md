@@ -777,11 +777,15 @@ PDF export is **deferred** (PRD §21.1, decision 2). If it is added later it mus
 ## 14. Authentication and authorization
 
 - Clerk handles sign-up, sign-in, sessions and OAuth.
-- The Clerk session JWT is forwarded to Supabase; Supabase is configured with Clerk as a third-party auth provider.
+- Server database requests forward the active Clerk session JWT through `createUserSupabaseClient()`. Use Supabase's native Clerk third-party auth integration, not a JWT template or shared signing secret.
 - RLS policies read the user key from `auth.jwt() ->> 'sub'`.
 - Server code never trusts a `user_id` sent by the client; it always resolves it from the session.
 - Public routes: landing, docs, `/api/cv/[id]` behind a signed, short-lived URL (not a plain public path).
 - Guest mode: a **signed, HttpOnly `guest_session` cookie** with an IP-derived quota. No Clerk anonymous accounts (decision 1). On first sign-in the guest's profile answers and generated CV are migrated into the new account.
+
+Configure the native integration in Clerk so its session JWT carries `role: authenticated`, then register that Clerk issuer in Supabase under **Authentication → Third-Party Auth**. Before registering an issuer on the shared hosted project, confirm that its `authenticated` role cannot access WikiFlash data. For a local smoke test, configure `[auth.third_party.clerk]` with the development issuer in a local-only config and use two dedicated test accounts: request both fixture profile IDs with each account’s session and confirm that each sees only its own. Do not log the tokens.
+
+Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `apps/web/.env.local` for local Next.js runs (or the root `.env`). Keep the user client request-scoped and create it immediately before database access.
 
 ---
 
@@ -958,7 +962,7 @@ CLERK_SECRET_KEY=
 
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 SUPABASE_SERVICE_ROLE_KEY=          # server only
 
 # LLM providers (only the ones in use)

@@ -6,10 +6,10 @@ const WEB_ROOT = path.resolve(import.meta.dirname, "..");
 const REPO_ROOT = path.resolve(WEB_ROOT, "..", "..");
 const STATIC_DIR = path.join(WEB_ROOT, ".next", "static");
 
-// Public by design (TR §21): publishable/anon keys are meant to reach the browser.
+// Public by design (TR §21): publishable keys are meant to reach the browser.
 const PUBLIC_SECRETS = new Set([
   "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
 ]);
 const SECRET_NAME = /(KEY|SECRET|TOKEN|PASSWORD)/;
 const BUNDLE_TEXT = /\.(js|css|map|json|txt|html)$/;
