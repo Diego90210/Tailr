@@ -27,9 +27,9 @@
   "counts": {
     "total": 111,
     "by_status": {
-      "pending": 83,
+      "pending": 82,
       "in_progress": 0,
-      "review": 0,
+      "review": 1,
       "blocked": 0,
       "done": 28
     },
@@ -531,7 +531,7 @@
       "detail": "",
       "phase": "Phase 1 — Data layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "review",
       "estimate": "M",
       "depends_on": [
         "DATA-01"

@@ -390,22 +390,22 @@ export const AnalysisSchema = z.object({
 
 // lib/contracts/generation.ts — what the Python service receives
 export const GenerateRequestSchema = z.object({
-  formatSpec: z.record(z.any()),
+  formatSpec: z.record(z.unknown()).refine((spec) => Object.keys(spec).length > 0),
   locale: z.enum(['en','es']).optional(),
   content: z.object({
-    header: z.object({ name: z.string(), contactLine: z.string() }),
+    header: z.object({ name: z.string().min(1), contactLine: z.string().min(1) }),
     summary: z.string(),
     experience: z.array(z.object({
       company: z.string(), role: z.string(),
       start: z.string(), end: z.string(),
       bullets: z.array(z.object({
         text: z.string(),
-        factIds: z.array(z.string()).min(1),   // fact-locking enforced at the edge
+         factIds: z.array(z.string().min(1)).min(1),
       })),
     })),
     projects: z.array(z.object({
       name: z.string(), stack: z.string().optional(), url: z.string().url().optional(),
-      bullets: z.array(z.object({ text: z.string(), factIds: z.array(z.string()).min(1) })),
+      bullets: z.array(z.object({ text: z.string(), factIds: z.array(z.string().min(1)).min(1) })),
     })),
     education: z.array(z.string()),
     certifications: z.array(z.string()),
@@ -415,7 +415,7 @@ export const GenerateRequestSchema = z.object({
 });
 ```
 
-A `GenerateRequest` that fails validation is rejected with `400`; no document is produced.
+A `GenerateRequest` that fails validation is rejected with `400`; no document is produced. The request schema checks that bullets carry references. The fact-locking validator checks that those references exist and support the claims; docgen validates the format spec fields.
 
 ---
 

@@ -1,6 +1,6 @@
 """format_spec rows: the global default read by the builder (technical_requirements.md §11.1).
 
-A `format_spec` is a plain dict (`GenerateRequestSchema.formatSpec` is `z.record(z.any())`),
+A `format_spec` is a plain dict (`GenerateRequestSchema.formatSpec` accepts a non-empty record),
 so the builder can be exercised with any variation of these keys.
 """
 
