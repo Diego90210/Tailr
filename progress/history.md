@@ -286,3 +286,8 @@
 - Added a request-scoped, server-only Supabase client that forwards the default Clerk session JWT and refuses to fall back to anonymous access. Renamed the environment contract and bundle-audit allowlist to `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; left `.env.local` untouched.
 - `./init.sh`, all 77 local pgTAP assertions, and the targeted web tests passed. Two real Clerk development sessions wrote their own profiles on a disposable local Supabase stack. Each session's query for both fixtures returned only its own profile. Both test sessions were revoked and the disposable stack removed.
 - Pushed `3ff8afa` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45534841316) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45534946292) passed; the shared database was already up to date. Hosted Clerk activation remains separate: production Clerk is not configured, and WikiFlash access must be checked before trusting an issuer on the shared project.
+
+## 2026-11-24 — DATA-07 Profile, analysis, and generation contracts (done)
+
+- Added the §6 Zod schemas and inferred TypeScript types in `apps/web/lib/contracts`. Generation requires fact references on experience and project bullets; the fact-locking validator still owns checking whether the references support the claims.
+- All nine focused tests and `./init.sh` passed. Pushed `9e3ddd3` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45535792975) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45535909222) passed and the remote database was already up to date. No route wiring or schema changes.
