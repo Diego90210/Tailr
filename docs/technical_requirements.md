@@ -368,24 +368,30 @@ export const ProfileSchema = z.object({
 });
 
 // lib/contracts/analysis.ts
-export const RequirementSchema = z.object({
+export const RequirementSchema = z.strictObject({
   text: z.string(),
   type: z.enum(['must','nice']),
   category: z.enum(['technical','soft','tool','domain','logistics']),
 });
 
-export const AnalysisSchema = z.object({
+const KeywordSchema = z.strictObject({
+  term: z.string(),
+  kind: z.enum(['technical','soft','tool','domain']),
+});
+
+export const PostingAnalysisSchema = z.strictObject({
   jdLang: z.enum(['en','es','other']),
   companyName: z.string().nullable(),
   roleTitle: z.string().nullable(),
+  seniority: z.enum(['junior','mid','senior','lead']).nullable(),
   requirements: z.array(RequirementSchema),
-  keywords: z.array(z.object({
-    term: z.string(),
-    kind: z.enum(['technical','soft','tool','domain']),
-    presentInProfile: z.boolean(),
-  })),
-  matchScore: z.number().min(0).max(100),
+  keywords: z.array(KeywordSchema),
   redFlags: z.array(z.string()),
+});
+
+export const AnalysisSchema = PostingAnalysisSchema.extend({
+  keywords: z.array(KeywordSchema.extend({ presentInProfile: z.boolean() })),
+  matchScore: z.number().min(0).max(100),
 });
 
 // lib/contracts/generation.ts — what the Python service receives
@@ -416,6 +422,8 @@ export const GenerateRequestSchema = z.object({
 ```
 
 A `GenerateRequest` that fails validation is rejected with `400`; no document is produced. The request schema checks that bullets carry references. The fact-locking validator checks that those references exist and support the claims; docgen validates the format spec fields.
+
+`analyze-jd.md` returns `PostingAnalysisSchema`. The caller wraps the posting with `wrapUntrusted("job_posting", text)`. Code adds keyword coverage and the match score to produce `AnalysisSchema`.
 
 ---
 

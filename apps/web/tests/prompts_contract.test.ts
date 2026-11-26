@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { PostingAnalysisSchema } from "@/lib/contracts/analysis";
 
 const PROMPTS = ["analyze-jd", "extract-profile", "gap-questions", "rewrite-bullets", "diagnose-ats", "humanizer"];
 
@@ -36,6 +37,13 @@ describe("prompt contract (RF-11.6)", () => {
     expect(text).toContain("factIds");
     expect(text).toMatch(/at least one/i);
     expect(text).toMatch(/220/);
+  });
+
+  it("ships a posting-only analysis example that matches the provider contract", () => {
+    const example = read("analyze-jd").match(/```json\s+([\s\S]+?)\s+```/);
+    expect(example).not.toBeNull();
+    const output = PostingAnalysisSchema.parse(JSON.parse(example![1]));
+    expect(output.requirements.map(({ type }) => type)).toEqual(["must", "nice"]);
   });
 
   it("keeps the humanizer pass fact-preserving and dash-free", () => {

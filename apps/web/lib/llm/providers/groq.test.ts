@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { z } from 'zod/v4';
-import { AnalysisSchema } from '@/lib/contracts/analysis';
+import { PostingAnalysisSchema } from '@/lib/contracts/analysis';
 import { GroqProvider } from './groq';
 import { InvalidLLMResponseError } from '../validation';
 
@@ -84,14 +84,15 @@ describe('GroqProvider', () => {
 
   it('accepts a documented analysis contract for schema negotiation and validation', async () => {
     const data = {
-      jdLang: 'en', companyName: null, roleTitle: null,
-      requirements: [], keywords: [], matchScore: 0, redFlags: [],
+      jdLang: 'en', companyName: null, roleTitle: null, seniority: null,
+      requirements: [], keywords: [], redFlags: [],
     };
     const fetchMock = mockFetch(200, { choices: [{ message: { content: JSON.stringify(data) } }] });
     vi.stubGlobal('fetch', fetchMock);
-    await expect(new GroqProvider().complete(req({ schema: AnalysisSchema })))
+    await expect(new GroqProvider().complete(req({ schema: PostingAnalysisSchema })))
       .resolves.toMatchObject({ data });
-    expect(sentBody(fetchMock).response_format.json_schema.schema.required).toContain('matchScore');
+    expect(sentBody(fetchMock).response_format.json_schema.schema.required).toContain('seniority');
+    expect(sentBody(fetchMock).response_format.json_schema.schema.properties).not.toHaveProperty('matchScore');
   });
 
   it('throws on a non-OK response and on missing API key', async () => {
