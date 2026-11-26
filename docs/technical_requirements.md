@@ -741,6 +741,12 @@ PDF export is **deferred** (PRD §21.1, decision 2). If it is added later it mus
 ```
 
 ### `POST /api/analyze`
+
+Requires a Clerk session and a profile owned by the caller. Send JSON with
+`profileId` and `jdText`; `sourceUrl` is optional metadata, never fetched.
+Posting text is capped at 20,000 UTF-16 code units before trimming. The JSON body
+is capped at 128 KiB. Over-limit requests receive `413`.
+
 ```json
 // request
 { "profileId": "…", "jdText": "…", "sourceUrl": null }
@@ -748,13 +754,17 @@ PDF export is **deferred** (PRD §21.1, decision 2). If it is added later it mus
 {
   "analysisId": "…",
   "jdLang": "es",
-  "matchScore": 87.5,
+  "companyName": null,
+  "roleTitle": "Ingeniero de software",
+  "seniority": null,
   "requirements": [ { "text": "Node.js", "type": "must", "category": "technical" } ],
-  "keywords": [ { "term": "Node.js", "kind": "technical", "presentInProfile": true } ],
-  "confidence": 0.78,
-  "blocking": true
+  "keywords": [ { "term": "Node.js", "kind": "technical" } ],
+  "redFlags": []
 }
 ```
+
+JD-02 uses the existing `tailr_job_analyses` columns: seniority is returned but
+not stored. Match score, keyword coverage, and confidence are not computed here.
 
 ### `POST /api/chat`
 ```json

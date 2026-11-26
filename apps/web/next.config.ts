@@ -17,7 +17,8 @@ if (existsSync(rootEnv)) {
 
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingRoot: dirname(rootEnv),
+  outputFileTracingIncludes: { "/api/analyze": ["../../prompts/analyze-jd.md"] },
   experimental: {
     // pinned after the 16.4.0 security advisory: the agent build guard must not fire
     agentUpgrade: "security",
