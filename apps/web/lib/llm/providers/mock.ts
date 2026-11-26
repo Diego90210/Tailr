@@ -1,14 +1,14 @@
 // Mock provider for tests and local development
 import { LLMProvider, LLMRequest, LLMResponse } from '../types';
+import { validateResponse } from '../validation';
 
-export class MockProvider<T = unknown> implements LLMProvider {
+export class MockProvider implements LLMProvider {
   readonly name = 'mock';
 
-  constructor(private readonly mockData: T | null = null) {}
+  constructor(private readonly mockData: unknown = {}) {}
 
-  async complete<U = T>(req: LLMRequest<U>): Promise<LLMResponse<U>> {
-    // Return mock data if provided, otherwise empty object validated against schema
-    const data = this.mockData !== null ? (this.mockData as unknown as U) : (req.schema ? ({} as U) : ({} as U));
+  async complete<T>(req: LLMRequest<T>): Promise<LLMResponse<T>> {
+    const data = await validateResponse(this.name, req.schema, this.mockData);
     return {
       data,
       usage: {

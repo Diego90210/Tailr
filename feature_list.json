@@ -27,9 +27,9 @@
   "counts": {
     "total": 111,
     "by_status": {
-      "pending": 81,
+      "pending": 80,
       "in_progress": 0,
-      "review": 0,
+      "review": 1,
       "blocked": 0,
       "done": 30
     },
@@ -813,7 +813,7 @@
       "detail": "",
       "phase": "Phase 2 — LLM layer",
       "priority": "P0",
-      "status": "pending",
+      "status": "review",
       "estimate": "S",
       "depends_on": [
         "DATA-07"

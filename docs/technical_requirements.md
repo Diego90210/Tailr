@@ -329,7 +329,7 @@ create policy "own facts" on facts
 
 ```ts
 // lib/contracts/profile.ts
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const FactSchema = z.object({
   id: z.string().uuid(),
@@ -390,7 +390,7 @@ export const AnalysisSchema = z.object({
 
 // lib/contracts/generation.ts — what the Python service receives
 export const GenerateRequestSchema = z.object({
-  formatSpec: z.record(z.unknown()).refine((spec) => Object.keys(spec).length > 0),
+  formatSpec: z.record(z.string(), z.unknown()).refine((spec) => Object.keys(spec).length > 0),
   locale: z.enum(['en','es']).optional(),
   content: z.object({
     header: z.object({ name: z.string().min(1), contactLine: z.string().min(1) }),
@@ -436,7 +436,7 @@ export interface LLMRequest<T> {
   task: TaskKind;
   system: string;
   messages: { role: 'user' | 'assistant'; content: string }[];
-  schema?: z.ZodType<T>;
+  schema: z.ZodType<T>;
   maxTokens: number;
   temperature: number;
   locale: 'en' | 'es';

@@ -2,7 +2,7 @@
 // Provider SDK imports must NOT occur outside lib/llm/providers
 
 // zod/v4 provides z.toJSONSchema, used to derive provider JSON schemas from zod contracts.
-import { z } from 'zod/v4';
+import type { z } from 'zod/v4';
 
 export type TaskKind =
   | 'extract_profile'
@@ -20,7 +20,7 @@ export interface LLMRequest<T = unknown> {
   task: TaskKind;
   system: string;
   messages: { role: 'user' | 'assistant'; content: string }[];
-  schema?: z.ZodType<T>;
+  schema: z.ZodType<T>;
   maxTokens: number;
   temperature: number;
   locale: 'en' | 'es';

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 const BulletSchema = z.object({
   text: z.string(),
@@ -7,7 +7,7 @@ const BulletSchema = z.object({
 
 export const GenerateRequestSchema = z.object({
   // The Python renderer owns validation of the format spec fields.
-  formatSpec: z.record(z.unknown()).refine((spec) => Object.keys(spec).length > 0),
+  formatSpec: z.record(z.string(), z.unknown()).refine((spec) => Object.keys(spec).length > 0),
   locale: z.enum(["en", "es"]).optional(),
   content: z.object({
     header: z.object({ name: z.string().min(1), contactLine: z.string().min(1) }),

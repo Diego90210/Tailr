@@ -4,15 +4,7 @@ import { LLMProvider, LLMRequest, LLMResponse } from '../types';
 export class GeminiProvider implements LLMProvider {
   readonly name = 'gemini';
 
-  async complete<T>(req: LLMRequest<T>): Promise<LLMResponse<T>> {
-    // Placeholder implementation
-    return {
-      data: req.schema ? ({} as T) : ({} as T),
-      usage: {
-        tokensIn: 0,
-        tokensOut: 0,
-      },
-      model: 'gemini:placeholder',
-    };
+  async complete<T>(_req: LLMRequest<T>): Promise<LLMResponse<T>> {
+    throw new Error('[llm:gemini] Provider is not implemented');
   }
 }

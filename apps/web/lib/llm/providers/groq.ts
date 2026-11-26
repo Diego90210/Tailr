@@ -3,13 +3,17 @@
 import { z } from 'zod/v4';
 import { LLMProvider, LLMRequest, LLMResponse } from '../types';
 import { routeForTask } from '../router';
+import { InvalidLLMResponseError, validateResponse } from '../validation';
 
 const GROQ_CHAT_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-interface GroqChatResponse {
-  choices?: { message?: { content?: string } }[];
-  usage?: { prompt_tokens?: number; completion_tokens?: number };
-}
+const GroqChatResponseSchema = z.object({
+  choices: z.array(z.object({ message: z.object({ content: z.string() }) })).min(1),
+  usage: z.object({
+    prompt_tokens: z.number().int().nonnegative().optional(),
+    completion_tokens: z.number().int().nonnegative().optional(),
+  }).optional(),
+});
 
 // Groq strict json_schema requires every property to be listed in `required`.
 // Callers should model genuinely-absent fields as `.nullable()`, not `.optional()`.
@@ -36,20 +40,18 @@ export class GroqProvider implements LLMProvider {
     const { model } = routeForTask(req.task);
     // gpt-oss spends ~230 tokens on reasoning before the JSON: maxTokens < 1000
     // surfaces as a confusing API 400 json_validate_failed (SPIKE-03). Callers pass maxTokens.
-    const body: Record<string, unknown> = {
+    const schema = z.toJSONSchema(req.schema);
+    forceAllRequired(schema);
+    const body = {
       model,
       messages: [{ role: 'system', content: req.system }, ...req.messages],
       max_tokens: req.maxTokens,
       temperature: req.temperature,
-    };
-    if (req.schema) {
-      const schema = z.toJSONSchema(req.schema) as Record<string, unknown>;
-      forceAllRequired(schema);
-      body.response_format = {
+      response_format: {
         type: 'json_schema',
         json_schema: { name: req.task, strict: true, schema },
-      };
-    }
+      },
+    };
 
     const res = await fetch(GROQ_CHAT_URL, {
       method: 'POST',
@@ -57,14 +59,18 @@ export class GroqProvider implements LLMProvider {
       body: JSON.stringify(body),
     });
     if (!res.ok) {
-      const detail = await res.text();
-      throw new Error(`[llm:groq] ${res.status} ${res.statusText}: ${detail.slice(0, 300)}`);
+      throw new Error(`[llm:groq] Upstream HTTP ${res.status}`);
     }
 
-    const json = (await res.json()) as GroqChatResponse;
-    const content = json.choices?.[0]?.message?.content ?? '';
-    // Typed via the caller's zod contract; invalid output throws rather than reaching the user.
-    const data = (req.schema ? req.schema.parse(JSON.parse(content)) : content) as T;
+    let json: z.infer<typeof GroqChatResponseSchema>;
+    let payload: unknown;
+    try {
+      json = GroqChatResponseSchema.parse(await res.json());
+      payload = JSON.parse(json.choices[0].message.content);
+    } catch {
+      throw new InvalidLLMResponseError(this.name);
+    }
+    const data = await validateResponse(this.name, req.schema, payload);
     return {
       data,
       usage: {
