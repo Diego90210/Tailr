@@ -301,3 +301,8 @@
 
 - Made response schemas mandatory and aligned the shared contracts with Zod v4. Groq validates the upstream envelope and model output, Mock validates its fixtures, and unfinished adapters reject instead of returning placeholder successes. Validation and HTTP errors omit upstream content.
 - All 37 focused tests and `./init.sh` passed. Pushed `bcc5875` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45741126826) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45741310640) passed. No live provider calls or database schema changes.
+
+## 2026-11-25 — JD-01 Job posting analysis prompt (done)
+
+- Aligned `analyze-jd.md` v2 with a strict posting-only Zod contract. It captures required and preferred qualifications, keyword kinds, language, nullable seniority, company, role title, and red flags; code still owns match score and profile coverage.
+- All 16 targeted tests and `./init.sh` passed. Pushed `0e63a28` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45742512245) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45742835009) passed. No live provider call, endpoint wiring, or migration was added.

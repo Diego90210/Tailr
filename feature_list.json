@@ -29,9 +29,9 @@
     "by_status": {
       "pending": 79,
       "in_progress": 0,
-      "review": 1,
+      "review": 0,
       "blocked": 0,
-      "done": 31
+      "done": 32
     },
     "by_priority": {
       "P0": 61,
@@ -1095,7 +1095,7 @@
       "detail": "",
       "phase": "Phase 4 — Posting analysis",
       "priority": "P0",
-      "status": "review",
+      "status": "done",
       "estimate": "M",
       "depends_on": [
         "LLM-08"
