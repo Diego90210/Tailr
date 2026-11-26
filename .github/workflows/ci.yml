@@ -37,11 +37,21 @@ jobs:
       - run: python -m pytest -q
         working-directory: services/docgen
 
-  # Applies supabase/migrations to the live project on main only, after both
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.122.0
+      - run: supabase db start
+      - run: supabase test db --local
+
+  # Applies supabase/migrations to the live project on main only, after the
   # test jobs pass. Skips cleanly until the two repository secrets exist.
   migrations:
     runs-on: ubuntu-latest
-    needs: [web, docgen]
+    needs: [web, docgen, database]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4

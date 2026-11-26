@@ -448,7 +448,7 @@ Claims in this document are testable. Each one maps to an automated check.
 
 | Claim | Verification |
 |---|---|
-| RLS blocks cross-user access | Integration test: user B queries user A's profile and receives zero rows |
+| RLS blocks cross-user access | `supabase/tests/data10_ownership_test.sql`: user B queries user A's profile by ID and receives zero rows. CI runs the pgTAP suite against a local database. |
 | No CV binary is stored | Test asserts no storage bucket receives the uploaded file; request payload inspection |
 | Logs contain no content | CI lint rule that log calls cannot include content fields + a test that greps emitted logs |
 | Deletion is hard delete | Test: delete account, then assert zero rows and zero storage objects remain |
