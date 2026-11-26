@@ -296,3 +296,8 @@
 
 - Added 13 pgTAP assertions covering owner reads, exact-ID cross-user profile reads, cross-user profile updates and deletes, and private experience, project, education, and certification reads. CI runs pgTAP against a local database before the main-only migration job.
 - All 90 pgTAP assertions and `./init.sh` passed locally. Pushed `0e0b648` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45739746150) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45740022510) passed with no pending migration. No schema or policy changes.
+
+## 2026-11-25 — LLM-08 Response validation (done)
+
+- Made response schemas mandatory and aligned the shared contracts with Zod v4. Groq validates the upstream envelope and model output, Mock validates its fixtures, and unfinished adapters reject instead of returning placeholder successes. Validation and HTTP errors omit upstream content.
+- All 37 focused tests and `./init.sh` passed. Pushed `bcc5875` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45741126826) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45741310640) passed. No live provider calls or database schema changes.

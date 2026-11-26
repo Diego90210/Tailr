@@ -166,7 +166,7 @@ Anything not on this chain can be parallelized.
 | `LLM-05` | Cost meter + versioned pricing table (`lib/llm/pricing.ts`). | **P1** | TODO | S | LLM-02 | TR-RL-5 |
 | `LLM-06` | Write a `usage_events` row on every call (provider, model, tokens, cost, latency). | **P1** | TODO | S | LLM-05, DATA-04 | RF-11.5 |
 | `LLM-07` | Migrate the existing skills into `prompts/*.md` (analyze-jd, extract-profile, gap-questions, rewrite-bullets, diagnose-ats, humanizer). | **P0** | DONE | M | SETUP-01 | RF-11.6 |
-| `LLM-08` | Validate every LLM response with zod before use; invalid output never reaches the user or the DB. | **P0** | TODO | S | DATA-07 | RF-11.4 |
+| `LLM-08` | Validate every LLM response with zod before use; invalid output never reaches the user or the DB. | **P0** | DONE | S | DATA-07 | RF-11.4 |
 | `LLM-09` | Deterministic mock provider for tests and local development. | **P1** | TODO | S | LLM-01 | §19 |
 | `LLM-10` | **Enable ZDR** in the provider console and add a startup assertion that no training-enabled configuration is used. | **P0** | DONE | XS | SPIKE-02 | §8.1 |
 

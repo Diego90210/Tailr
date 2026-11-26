@@ -29,9 +29,9 @@
     "by_status": {
       "pending": 80,
       "in_progress": 0,
-      "review": 1,
+      "review": 0,
       "blocked": 0,
-      "done": 30
+      "done": 31
     },
     "by_priority": {
       "P0": 61,
@@ -813,7 +813,7 @@
       "detail": "",
       "phase": "Phase 2 — LLM layer",
       "priority": "P0",
-      "status": "review",
+      "status": "done",
       "estimate": "S",
       "depends_on": [
         "DATA-07"
