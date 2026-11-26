@@ -306,3 +306,8 @@
 
 - Aligned `analyze-jd.md` v2 with a strict posting-only Zod contract. It captures required and preferred qualifications, keyword kinds, language, nullable seniority, company, role title, and red flags; code still owns match score and profile coverage.
 - All 16 targeted tests and `./init.sh` passed. Pushed `0e63a28` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45742512245) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45742835009) passed. No live provider call, endpoint wiring, or migration was added.
+
+## 2026-11-25 — JD-02 Posting analysis endpoint (done)
+
+- Added `POST /api/analyze` with 20,000-character posting and 128 KiB JSON caps. It checks Clerk profile ownership before calling the LLM with delimited posting text and saves validated results to `tailr_job_analyses` using the caller's JWT. Seniority is returned but not stored; scoring and coverage are deferred.
+- All 17 focused tests and `./init.sh` passed. Verified the prompt is included in the production route trace. Pushed `4a35811` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45744664636) passed; [main CI](https://github.com/Diego90210/Tailr/actions/runs/45744804247) passed. No schema changes or live Groq or hosted Clerk verification.

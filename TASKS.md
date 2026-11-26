@@ -192,7 +192,7 @@ Anything not on this chain can be parallelized.
 | ID | Task | Pri | Status | Est | Depends | Refs |
 |---|---|---|---|---|---|---|
 | `JD-01` | `analyze_jd` prompt: must/nice split, keyword kinds, language, seniority, red flags, company and role title. | **P0** | DONE | M | LLM-08 | RF-3.2 |
-| `JD-02` | `POST /api/analyze` endpoint, payload caps (20k chars), persistence to `job_analyses`. | **P0** | TODO | M | JD-01, DATA-03 | RF-3.1 |
+| `JD-02` | `POST /api/analyze` endpoint, payload caps (20k chars), persistence to `job_analyses`. | **P0** | DONE | M | JD-01, DATA-03 | RF-3.1 |
 | `JD-03` | Deterministic match score (must 70% / nice 30%) computed in code, never by the LLM. | **P0** | TODO | S | JD-02 | RF-3.3 |
 | `JD-04` | Posting-only cache keyed by `jd_hash`: caches requirements/keywords/language but **never** match score or coverage. | **P1** | TODO | M | JD-03 | §13.3 |
 | `JD-05` | Language handling: detect ES/EN; if `other`, ask which CV language to use. | **P1** | TODO | S | JD-02 | RF-3.4, RF-8.5 |
