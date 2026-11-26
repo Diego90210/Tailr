@@ -151,7 +151,7 @@ Anything not on this chain can be parallelized.
 | `DATA-07` | TS types + zod contracts for profile, analysis and generation (`lib/contracts`). | **P0** | DONE | M | DATA-01 | §6 |
 | `DATA-08` | Repository/service layer with server-side ownership checks (defense in depth beyond RLS). | **P0** | TODO | M | DATA-06,07 | §7 |
 | `DATA-09` | Retention job: age-out per `backend_schema.md` §15 (30d analyses/CVs, 7d guest) + `keep_my_data` flag on `profiles`. | **P2** | TODO | M | DATA-01 | §15 |
-| `DATA-10` | RLS + ownership verification tests (user B cannot read user A). | **P0** | TODO | S | DATA-06 | §22 |
+| `DATA-10` | RLS + ownership verification tests (user B cannot read user A). | **P0** | DONE | S | DATA-06 | §22 |
 
 ---
 

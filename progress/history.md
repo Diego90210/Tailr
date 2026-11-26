@@ -291,3 +291,8 @@
 
 - Added the §6 Zod schemas and inferred TypeScript types in `apps/web/lib/contracts`. Generation requires fact references on experience and project bullets; the fact-locking validator still owns checking whether the references support the claims.
 - All nine focused tests and `./init.sh` passed. Pushed `9e3ddd3` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45535792975) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45535909222) passed and the remote database was already up to date. No route wiring or schema changes.
+
+## 2026-11-25 — DATA-10 RLS ownership verification (done)
+
+- Added 13 pgTAP assertions covering owner reads, exact-ID cross-user profile reads, cross-user profile updates and deletes, and private experience, project, education, and certification reads. CI runs pgTAP against a local database before the main-only migration job.
+- All 90 pgTAP assertions and `./init.sh` passed locally. Pushed `0e0b648` directly to `main` after [branch CI](https://github.com/Diego90210/Tailr/actions/runs/45739746150) passed. [Main CI](https://github.com/Diego90210/Tailr/actions/runs/45740022510) passed with no pending migration. No schema or policy changes.
